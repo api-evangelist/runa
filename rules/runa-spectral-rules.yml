@@ -1,0 +1,91 @@
+rules:
+  runa-operation-ids-camel-case:
+    description: All operationIds must use camelCase naming convention.
+    severity: warn
+    given: "$.paths.*[get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  runa-tags-title-case:
+    description: All tags must use Title Case.
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9 ]*$"
+
+  runa-api-key-header:
+    description: All operations must use X-Api-Key apiKey authentication.
+    severity: warn
+    given: "$.components.securitySchemes.apiKeyAuth"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          properties:
+            name:
+              const: X-Api-Key
+
+  runa-idempotency-key-on-orders:
+    description: Order creation endpoint should document X-Idempotency-Key header.
+    severity: warn
+    given: "$.paths.*.post.parameters[?(@.name=='X-Idempotency-Key')]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          properties:
+            in:
+              const: header
+
+  runa-paths-kebab-case:
+    description: All path segments must use kebab-case.
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9{}-]+)+$"
+
+  runa-response-200-defined:
+    description: All operations must define a 200 response.
+    severity: error
+    given: "$.paths.*[get,post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          required:
+            - "200"
+
+  runa-401-defined:
+    description: All secured endpoints must define a 401 response.
+    severity: warn
+    given: "$.paths.*[get,post].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          required:
+            - "401"
+
+  runa-summaries-title-case:
+    description: Operation summaries must use Title Case.
+    severity: warn
+    given: "$.paths.*[get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  runa-versioned-api:
+    description: API version should be expressed in the server URL path.
+    severity: info
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "/v[0-9]"

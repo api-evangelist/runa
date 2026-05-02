@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.runa.io/v2/balance?currency=USD",
+    "headers": {
+      "X-Api-Key": "YOUR_RUNA_API_KEY",
+      "X-Api-Version": "2024-02-05"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "balance": "1250.00",
+      "currency": "USD"
+    }
+  }
+}

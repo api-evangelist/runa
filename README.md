@@ -1,41 +1,73 @@
-# Runa (runa)
-Easily automate your digital reward distribution process with one reliable gift card API, giving you access to the widest international catalog of brands at the best prices. 
+# Runa
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/apis.yml)
+Runa is a global digital payouts platform that enables businesses to automate digital reward and gift card distribution through a single API. The platform provides access to over 5,000 gift cards and payout options across 190+ countries, supporting B2C payments, employee rewards, customer incentives, and loyalty programs.
 
-## Scope
-
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
-
-## Tags:
-
- - API
-
-## Timestamps
-
-- **Created:** 2025-02-08 
-- **Modified:** 2026-03-16 
+**Human URL:** https://developer.runa.io/
 
 ## APIs
 
-### Runa
-Easily automate your digital reward distribution process with one reliable gift card API, giving you access to the widest international catalog of brands at the best prices. 
+| API | Description |
+|-----|-------------|
+| [Runa Payouts API](openapi/runa-payouts-api-openapi.yml) | Digital reward and gift card distribution via orders, products, and balance management |
 
-**Human URL:** [ https://runa.io/gift-card-api]( https://runa.io/gift-card-api)
+## OpenAPI Specifications
 
+| Spec | Description |
+|------|-------------|
+| [runa-payouts-api-openapi.yml](openapi/runa-payouts-api-openapi.yml) | Payouts API covering orders, products, categories, countries, balance, and ping |
 
-#### Tags:
+## Rules
 
- - API
+| Ruleset | Description |
+|---------|-------------|
+| [runa-spectral-rules.yml](rules/runa-spectral-rules.yml) | Spectral ruleset enforcing Runa API design conventions |
 
-#### Properties
+## Capabilities
 
-- [Documentation]( https://runa.io/gift-card-api)
+### Workflow Capabilities
+
+| Capability | Description |
+|------------|-------------|
+| [rewards-distribution.yaml](capabilities/rewards-distribution.yaml) | End-to-end digital reward distribution workflow |
+
+### Shared Definitions
+
+| Shared | Description |
+|--------|-------------|
+| [payouts-api.yaml](capabilities/shared/payouts-api.yaml) | Per-API consumed definition for the Runa Payouts API |
+
+## Schemas
+
+| Schema | Description |
+|--------|-------------|
+| [runa-order-schema.json](json-schema/runa-order-schema.json) | JSON Schema for Runa order records |
+
+## Structures
+
+| Structure | Description |
+|-----------|-------------|
+| [runa-structure.json](json-structure/runa-structure.json) | JSON structure documentation for Runa data entities |
+
+## JSON-LD
+
+| Context | Description |
+|---------|-------------|
+| [runa-context.jsonld](json-ld/runa-context.jsonld) | JSON-LD context mapping Runa vocabulary to schema.org |
+
+## Examples
+
+| Example | Description |
+|---------|-------------|
+| [runa-create-order-example.json](examples/runa-create-order-example.json) | Create a $25 multi-brand payout link order |
+| [runa-get-balance-example.json](examples/runa-get-balance-example.json) | Get USD account balance |
+
+## Vocabulary
+
+| Vocabulary | Description |
+|------------|-------------|
+| [runa-vocabulary.yml](vocabulary/runa-vocabulary.yml) | Domain vocabulary for digital rewards, payouts, and gift card concepts |
 
 ## Maintainers
 
-**FN:** Kin Lane
-
+**FN:** Kin Lane  
 **Email:** kin@apievangelist.com

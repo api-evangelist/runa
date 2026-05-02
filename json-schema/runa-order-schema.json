@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.runa.io/schemas/order",
+  "title": "Runa Order",
+  "description": "A digital reward or gift card order on the Runa platform",
+  "type": "object",
+  "required": ["id", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique order identifier"
+    },
+    "status": {
+      "type": "string",
+      "description": "Order fulfillment status",
+      "enum": ["PENDING", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Order creation timestamp"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Order completion timestamp"
+    },
+    "payment_method": {
+      "type": "object",
+      "description": "Payment source used",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["ACCOUNT_BALANCE"]
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 currency code"
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "description": "Order line items with fulfillment details",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Item identifier" },
+          "face_value": { "type": "number", "description": "Item face value" },
+          "currency": { "type": "string", "description": "Item currency" },
+          "status": { "type": "string", "description": "Item status" },
+          "payout": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Payout redemption link"
+              },
+              "expires_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Link expiration"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

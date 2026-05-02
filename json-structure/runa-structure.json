@@ -1,0 +1,77 @@
+{
+  "title": "Runa API Data Structures",
+  "description": "JSON structure documentation for the Runa Payouts API data entities",
+  "version": "2024-02-05",
+  "entities": {
+    "Order": {
+      "description": "A digital reward or gift card order",
+      "fields": {
+        "id": { "type": "string", "description": "Order identifier", "required": true },
+        "status": {
+          "type": "string",
+          "description": "PENDING | PROCESSING | COMPLETED | FAILED | CANCELLED",
+          "required": true
+        },
+        "created_at": { "type": "string", "description": "Creation timestamp" },
+        "completed_at": { "type": "string", "description": "Completion timestamp" },
+        "payment_method": { "type": "object", "description": "Payment source (type + currency)" },
+        "items": { "type": "array", "description": "Order line items with payout URLs" }
+      }
+    },
+    "OrderItem": {
+      "description": "A line item in a Runa order",
+      "fields": {
+        "id": { "type": "string", "description": "Item identifier" },
+        "face_value": { "type": "number", "description": "Item monetary value" },
+        "currency": { "type": "string", "description": "ISO 4217 currency" },
+        "status": { "type": "string", "description": "Item fulfillment status" },
+        "payout": {
+          "type": "object",
+          "description": "Payout delivery details",
+          "fields": {
+            "url": { "type": "string", "description": "Recipient redemption link", "required": true },
+            "expires_at": { "type": "string", "description": "Link expiration timestamp" }
+          }
+        }
+      }
+    },
+    "Product": {
+      "description": "A gift card or digital payout product in the Runa catalog",
+      "fields": {
+        "id": { "type": "string", "description": "Product identifier", "required": true },
+        "name": { "type": "string", "description": "Brand name", "required": true },
+        "description": { "type": "string", "description": "Redemption instructions" },
+        "categories": { "type": "array", "description": "Category names" },
+        "countries": { "type": "array", "description": "Supported country codes" },
+        "currencies": { "type": "array", "description": "Supported currencies" },
+        "denominations": {
+          "type": "object",
+          "description": "Denomination options (FIXED or VARIABLE)",
+          "fields": {
+            "type": { "type": "string", "description": "FIXED or VARIABLE" },
+            "values": { "type": "array", "description": "Fixed denomination amounts" },
+            "min": { "type": "number", "description": "Minimum variable amount" },
+            "max": { "type": "number", "description": "Maximum variable amount" }
+          }
+        },
+        "image_url": { "type": "string", "description": "Brand logo URL" }
+      }
+    },
+    "Balance": {
+      "description": "Account balance for a currency",
+      "fields": {
+        "balance": { "type": "string", "description": "Balance amount as string", "required": true },
+        "currency": { "type": "string", "description": "ISO 4217 currency code", "required": true }
+      }
+    },
+    "OrderEstimate": {
+      "description": "Cost estimate for a potential order",
+      "fields": {
+        "face_value": { "type": "number", "description": "Total face value" },
+        "fees": { "type": "number", "description": "Platform fees" },
+        "total": { "type": "number", "description": "Total cost including fees" },
+        "currency": { "type": "string", "description": "Currency for all values" }
+      }
+    }
+  }
+}

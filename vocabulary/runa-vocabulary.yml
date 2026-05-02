@@ -1,0 +1,123 @@
+name: Runa Vocabulary
+description: >-
+  Domain vocabulary for the Runa digital payouts and gift card distribution
+  platform, covering order management, product catalog, distribution methods,
+  and reward program concepts.
+version: "1.0"
+created: "2026-05-02"
+modified: "2026-05-02"
+
+domains:
+  - name: Order Concepts
+    description: Core concepts in digital reward order management
+    terms:
+      - term: Order
+        definition: >-
+          A request to distribute one or more digital rewards or gift cards
+          to recipients. Orders have a payment method, items, and fulfillment status.
+      - term: Payout Link
+        definition: >-
+          A unique URL generated for each fulfilled order item. The recipient
+          visits this link to choose and redeem their digital reward from the
+          available product selection.
+      - term: Idempotency Key
+        definition: >-
+          A unique identifier (typically a V4 UUID) included in order creation
+          requests to prevent duplicate orders when a request is retried. Runa
+          stores idempotency keys and returns the original response on retry.
+      - term: Synchronous Order
+        definition: >-
+          An order created with X-Execution-Mode: sync that is fulfilled
+          immediately in the API response. The payout URL is available in
+          the response body.
+      - term: Asynchronous Order
+        definition: >-
+          An order created with X-Execution-Mode: async that is processed
+          in the background. Poll the GET /order/{id} endpoint to check
+          completion status.
+
+  - name: Order Status Values
+    description: Possible states in the Runa order lifecycle
+    terms:
+      - term: PENDING
+        definition: Order has been received but processing has not begun.
+      - term: PROCESSING
+        definition: Order is being processed and rewards are being fulfilled.
+      - term: COMPLETED
+        definition: Order has been fulfilled and payout links are available.
+      - term: FAILED
+        definition: Order processing failed; no charges incurred.
+      - term: CANCELLED
+        definition: Order was cancelled before completion.
+
+  - name: Distribution Methods
+    description: How digital rewards are delivered to recipients
+    terms:
+      - term: PAYOUT_LINK
+        definition: >-
+          The recipient is given a URL they visit to choose and redeem
+          their reward. No recipient details required at order time.
+      - term: EMAIL
+        definition: >-
+          The payout link is sent directly to the recipient's email address.
+          Requires recipient.email in the order request.
+      - term: RECIPIENT
+        definition: >-
+          Delivery details are specified in the recipient object,
+          supporting customized delivery workflows.
+
+  - name: Product Concepts
+    description: Gift card and payout product terminology
+    terms:
+      - term: Product
+        definition: >-
+          A brand or merchant available in the Runa catalog for digital
+          reward distribution (e.g., Amazon, Starbucks, Nike).
+      - term: Denomination
+        definition: >-
+          The face value of a gift card. Products have either FIXED
+          denominations (specific amounts) or VARIABLE denominations
+          (within a min/max range).
+      - term: Face Value
+        definition: >-
+          The monetary value loaded onto a digital reward. The recipient
+          can spend this amount at the product's merchant.
+      - term: Category
+        definition: >-
+          A grouping of products by type (e.g., Retail, Dining, Gaming,
+          Entertainment, Travel). Used to filter the product catalog.
+
+  - name: Payment Concepts
+    description: Payment and balance management
+    terms:
+      - term: Account Balance
+        definition: >-
+          The pre-funded balance in a Runa account used to pay for orders.
+          Balances are maintained per currency. Top-up is done via the
+          Runa dashboard.
+      - term: Fees
+        definition: >-
+          Platform charges applied to orders in addition to the face value.
+          The estimate endpoint shows the total cost including fees.
+
+  - name: Event System
+    description: Webhook events for order and catalog notifications
+    terms:
+      - term: Order Completion Webhook
+        definition: >-
+          A webhook event fired when an order transitions to COMPLETED or FAILED
+          status. Subscribers receive order details and payout URLs.
+      - term: Product Update Webhook
+        definition: >-
+          A webhook event fired when products are added, modified, or removed
+          from the Runa catalog, enabling real-time catalog sync.
+
+tags:
+  - Gift Cards
+  - Rewards
+  - Payments
+  - Incentives
+  - Payouts
+  - B2C
+  - Loyalty
+  - Employee Recognition

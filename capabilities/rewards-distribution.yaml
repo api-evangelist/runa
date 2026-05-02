@@ -1,0 +1,243 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Runa Rewards Distribution"
+  description: >-
+    Workflow capability for digital reward and gift card distribution using
+    the Runa platform. Combines product discovery, order management, balance
+    monitoring, and cost estimation for B2C payment, employee incentive,
+    customer loyalty, and marketing reward workflows. Serves reward program
+    managers, growth engineers, and operations teams automating digital
+    reward delivery at scale.
+  tags:
+    - Gift Cards
+    - Rewards
+    - Payments
+    - Incentives
+    - Payouts
+    - B2C
+    - Loyalty
+    - Runa
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      RUNA_API_KEY: RUNA_API_KEY
+
+capability:
+  consumes:
+    - import: payouts-api
+      location: ./shared/payouts-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: rewards-distribution-api
+      description: "Unified REST API for Runa digital reward and gift card distribution workflows."
+      resources:
+        - path: /v1/catalog
+          name: catalog
+          description: "Browse available reward products"
+          operations:
+            - method: GET
+              name: browse-catalog
+              description: "Browse available gift cards and payout products"
+              call: "payouts-api.list-products"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/catalog/categories
+          name: categories
+          description: "Product categories"
+          operations:
+            - method: GET
+              name: list-categories
+              description: "List product categories for catalog filtering"
+              call: "payouts-api.list-categories"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/catalog/countries
+          name: countries
+          description: "Supported countries"
+          operations:
+            - method: GET
+              name: list-countries
+              description: "List countries supported by Runa"
+              call: "payouts-api.list-countries"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/catalog/{productId}
+          name: product
+          description: "Product details"
+          operations:
+            - method: GET
+              name: get-product
+              description: "Get product denominations and redemption info"
+              call: "payouts-api.get-product"
+              with:
+                productId: "rest.productId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/rewards
+          name: rewards
+          description: "Digital reward orders"
+          operations:
+            - method: POST
+              name: send-reward
+              description: "Create and send a digital reward to a recipient"
+              call: "payouts-api.create-order"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: list-rewards
+              description: "List all reward orders"
+              call: "payouts-api.list-orders"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/rewards/{orderId}
+          name: reward
+          description: "Specific reward order"
+          operations:
+            - method: GET
+              name: get-reward-status
+              description: "Get reward order status and payout URL"
+              call: "payouts-api.get-order"
+              with:
+                orderId: "rest.orderId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/rewards/estimate
+          name: reward-estimate
+          description: "Estimate reward cost"
+          operations:
+            - method: POST
+              name: estimate-reward
+              description: "Estimate cost before sending a reward"
+              call: "payouts-api.estimate-order"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/account/balance
+          name: balance
+          description: "Account balance"
+          operations:
+            - method: GET
+              name: get-balance
+              description: "Get current account balance"
+              call: "payouts-api.get-balance"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: rewards-distribution-mcp
+      transport: http
+      description: "MCP server for AI-assisted digital reward and gift card distribution using Runa."
+      tools:
+        - name: browse-catalog
+          description: "Browse available gift cards and payout products in the Runa catalog"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "payouts-api.list-products"
+          with:
+            country: "tools.country"
+            category: "tools.category"
+            query: "tools.query"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-product-details
+          description: "Get denomination options and redemption instructions for a specific Runa product"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payouts-api.get-product"
+          with:
+            productId: "tools.productId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-product-categories
+          description: "List all product categories available in the Runa catalog (e.g., Retail, Dining, Gaming)"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payouts-api.list-categories"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-supported-countries
+          description: "List all countries where Runa can deliver digital rewards"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payouts-api.list-countries"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: estimate-reward-cost
+          description: "Estimate the cost of sending a digital reward before placing the order"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payouts-api.estimate-order"
+          with:
+            payment_method: "tools.paymentMethod"
+            items: "tools.items"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: send-reward
+          description: "Create and send a digital reward or gift card to a recipient via Runa"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "payouts-api.create-order"
+          with:
+            payment_method: "tools.paymentMethod"
+            items: "tools.items"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-reward-status
+          description: "Check the fulfillment status of a reward order and retrieve the payout URL"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payouts-api.get-order"
+          with:
+            orderId: "tools.orderId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-rewards
+          description: "List all digital reward orders placed with the Runa account"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payouts-api.list-orders"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-account-balance
+          description: "Get the current Runa account balance to check available funds before sending rewards"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "payouts-api.get-balance"
+          with:
+            currency: "tools.currency"
+          outputParameters:
+            - type: object
+              mapping: "$."
