@@ -1,0 +1,13 @@
+{
+  "repo": "runa",
+  "feeds": [
+    {
+      "source": "https://runa.io/blog/",
+      "feed_url": "https://runa.io/feed",
+      "saved": 10,
+      "title": "Runa"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:35:29Z"
+}
