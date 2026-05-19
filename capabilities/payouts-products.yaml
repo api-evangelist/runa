@@ -1,0 +1,217 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Runa Payouts API — Products
+  description: 'Runa Payouts API — Products. 4 operations. Lead operation: List Products. Self-contained Naftiko capability
+    covering one Runa business surface.'
+  tags:
+  - Runa
+  - Products
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUNA_API_KEY: RUNA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payouts-products
+    baseUri: https://api.runa.io/v2
+    description: Runa Payouts API — Products business capability. Self-contained, no shared references.
+    resources:
+    - name: products
+      path: /products
+      operations:
+      - name: listproducts
+        method: GET
+        description: List Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: country
+          in: query
+          type: string
+          description: ISO 3166-1 alpha-2 country code to filter products
+        - name: category
+          in: query
+          type: string
+          description: Category name to filter products
+        - name: currency
+          in: query
+          type: string
+          description: ISO 4217 currency code to filter products
+        - name: query
+          in: query
+          type: string
+          description: Search query to filter products by name
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Products per page
+    - name: products-categories
+      path: /products/categories
+      operations:
+      - name: listcategories
+        method: GET
+        description: List Product Categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: products-countries
+      path: /products/countries
+      operations:
+      - name: listcountries
+        method: GET
+        description: List Supported Countries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: products-productId
+      path: /products/{productId}
+      operations:
+      - name: getproduct
+        method: GET
+        description: Get Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          description: The unique product identifier
+          required: true
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.RUNA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: payouts-products-rest
+    port: 8080
+    description: REST adapter for Runa Payouts API — Products. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/products
+      name: products
+      description: REST surface for products.
+      operations:
+      - method: GET
+        name: listproducts
+        description: List Products
+        call: payouts-products.listproducts
+        with:
+          country: rest.country
+          category: rest.category
+          currency: rest.currency
+          query: rest.query
+          page: rest.page
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/categories
+      name: products-categories
+      description: REST surface for products-categories.
+      operations:
+      - method: GET
+        name: listcategories
+        description: List Product Categories
+        call: payouts-products.listcategories
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/countries
+      name: products-countries
+      description: REST surface for products-countries.
+      operations:
+      - method: GET
+        name: listcountries
+        description: List Supported Countries
+        call: payouts-products.listcountries
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/{productid}
+      name: products-productid
+      description: REST surface for products-productId.
+      operations:
+      - method: GET
+        name: getproduct
+        description: Get Product
+        call: payouts-products.getproduct
+        with:
+          productId: rest.productId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payouts-products-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Runa Payouts API — Products. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-products
+      description: List Products
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payouts-products.listproducts
+      with:
+        country: tools.country
+        category: tools.category
+        currency: tools.currency
+        query: tools.query
+        page: tools.page
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-product-categories
+      description: List Product Categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payouts-products.listcategories
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-supported-countries
+      description: List Supported Countries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payouts-products.listcountries
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-product
+      description: Get Product
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payouts-products.getproduct
+      with:
+        productId: tools.productId
+      outputParameters:
+      - type: object
+        mapping: $.

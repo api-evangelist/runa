@@ -1,0 +1,218 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Runa Payouts API — Orders
+  description: 'Runa Payouts API — Orders. 4 operations. Lead operation: Create An Order. Self-contained Naftiko capability
+    covering one Runa business surface.'
+  tags:
+  - Runa
+  - Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUNA_API_KEY: RUNA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payouts-orders
+    baseUri: https://api.runa.io/v2
+    description: Runa Payouts API — Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: order
+      path: /order
+      operations:
+      - name: createorder
+        method: POST
+        description: Create An Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Idempotency-Key
+          in: header
+          type: string
+          description: A unique identifier (V4 UUID recommended) to ensure idempotent order creation on retries.
+        - name: X-Execution-Mode
+          in: header
+          type: string
+          description: Order execution mode. Use 'sync' for immediate fulfillment or 'async' for asynchronous processing.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listorders
+        method: GET
+        description: List Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of orders per page
+    - name: order-estimate
+      path: /order/estimate
+      operations:
+      - name: estimateorder
+        method: POST
+        description: Estimate Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: order-orderId
+      path: /order/{orderId}
+      operations:
+      - name: getorder
+        method: GET
+        description: Get Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: path
+          type: string
+          description: The unique order identifier
+          required: true
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.RUNA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: payouts-orders-rest
+    port: 8080
+    description: REST adapter for Runa Payouts API — Orders. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/order
+      name: order
+      description: REST surface for order.
+      operations:
+      - method: POST
+        name: createorder
+        description: Create An Order
+        call: payouts-orders.createorder
+        with:
+          X-Idempotency-Key: rest.X-Idempotency-Key
+          X-Execution-Mode: rest.X-Execution-Mode
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listorders
+        description: List Orders
+        call: payouts-orders.listorders
+        with:
+          page: rest.page
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/order/estimate
+      name: order-estimate
+      description: REST surface for order-estimate.
+      operations:
+      - method: POST
+        name: estimateorder
+        description: Estimate Order
+        call: payouts-orders.estimateorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/order/{orderid}
+      name: order-orderid
+      description: REST surface for order-orderId.
+      operations:
+      - method: GET
+        name: getorder
+        description: Get Order
+        call: payouts-orders.getorder
+        with:
+          orderId: rest.orderId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payouts-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Runa Payouts API — Orders. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-order
+      description: Create An Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: payouts-orders.createorder
+      with:
+        X-Idempotency-Key: tools.X-Idempotency-Key
+        X-Execution-Mode: tools.X-Execution-Mode
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-orders
+      description: List Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payouts-orders.listorders
+      with:
+        page: tools.page
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: estimate-order
+      description: Estimate Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: payouts-orders.estimateorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-order
+      description: Get Order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payouts-orders.getorder
+      with:
+        orderId: tools.orderId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Runa Payouts API — Utilities
+  description: 'Runa Payouts API — Utilities. 1 operations. Lead operation: Ping. Self-contained Naftiko capability covering
+    one Runa business surface.'
+  tags:
+  - Runa
+  - Utilities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUNA_API_KEY: RUNA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payouts-utilities
+    baseUri: https://api.runa.io/v2
+    description: Runa Payouts API — Utilities business capability. Self-contained, no shared references.
+    resources:
+    - name: ping
+      path: /ping
+      operations:
+      - name: ping
+        method: GET
+        description: Ping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.RUNA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: payouts-utilities-rest
+    port: 8080
+    description: REST adapter for Runa Payouts API — Utilities. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ping
+      name: ping
+      description: REST surface for ping.
+      operations:
+      - method: GET
+        name: ping
+        description: Ping
+        call: payouts-utilities.ping
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payouts-utilities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Runa Payouts API — Utilities. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: ping
+      description: Ping
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payouts-utilities.ping
+      outputParameters:
+      - type: object
+        mapping: $.

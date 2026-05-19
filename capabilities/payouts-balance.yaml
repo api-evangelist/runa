@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Runa Payouts API — Balance
+  description: 'Runa Payouts API — Balance. 1 operations. Lead operation: Get Account Balance. Self-contained Naftiko capability
+    covering one Runa business surface.'
+  tags:
+  - Runa
+  - Balance
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUNA_API_KEY: RUNA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: payouts-balance
+    baseUri: https://api.runa.io/v2
+    description: Runa Payouts API — Balance business capability. Self-contained, no shared references.
+    resources:
+    - name: balance
+      path: /balance
+      operations:
+      - name: getbalance
+        method: GET
+        description: Get Account Balance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: ISO 4217 currency code (e.g., USD, GBP, EUR)
+    authentication:
+      type: apikey
+      key: X-Api-Key
+      value: '{{env.RUNA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: payouts-balance-rest
+    port: 8080
+    description: REST adapter for Runa Payouts API — Balance. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/balance
+      name: balance
+      description: REST surface for balance.
+      operations:
+      - method: GET
+        name: getbalance
+        description: Get Account Balance
+        call: payouts-balance.getbalance
+        with:
+          currency: rest.currency
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: payouts-balance-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Runa Payouts API — Balance. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-account-balance
+      description: Get Account Balance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: payouts-balance.getbalance
+      with:
+        currency: tools.currency
+      outputParameters:
+      - type: object
+        mapping: $.
