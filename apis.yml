@@ -64,6 +64,8 @@ common:
   url: https://runa.io/privacy-policy/
 - type: Blog
   url: https://runa.io/blog/
+- type: LLMsTxt
+  url: https://developer.runa.io/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
