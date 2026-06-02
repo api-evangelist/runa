@@ -2,12 +2,17 @@
   "repo": "runa",
   "feeds": [
     {
-      "source": "https://runa.io/blog/",
+      "source": "https://runa.io/feed/",
       "feed_url": "https://runa.io/feed/",
-      "title": "Runa",
-      "saved": 4
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://runa.io/privacy-policy/",
+      "error": "HTTPError"
     }
   ],
-  "post_count": 14,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 21,
+  "fetched": "2026-06-01T23:35:02Z"
 }
