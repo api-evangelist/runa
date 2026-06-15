@@ -1,73 +1,66 @@
-# Runa
+# Runa (runa)
 
-Runa is a global digital payouts platform that enables businesses to automate digital reward and gift card distribution through a single API. The platform provides access to over 5,000 gift cards and payout options across 190+ countries, supporting B2C payments, employee rewards, customer incentives, and loyalty programs.
+Runa is a global digital payouts platform that enables businesses to automate digital reward and gift card distribution through a single API. The platform provides access to over 5,000 gift cards and payout options across 190+ countries, supporting B2C payments, employee rewards, customer incentives, and loyalty programs. The Runa API supports synchronous and asynchronous order modes, balance management, product catalog browsing, and webhook-based event notifications for order completions.
 
-**Human URL:** https://developer.runa.io/
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
+
+## Tags
+
+- Gift Cards
+- Rewards
+- Payments
+- Incentives
+- Payouts
+
+## Timestamps
+
+- **Created:** 2025-02-08
+- **Modified:** 2026-05-19
 
 ## APIs
 
-| API | Description |
-|-----|-------------|
-| [Runa Payouts API](openapi/runa-payouts-api-openapi.yml) | Digital reward and gift card distribution via orders, products, and balance management |
+### Runa Payouts API
 
-## OpenAPI Specifications
+The Runa Payouts API (v2) enables digital reward and gift card distribution at scale. Core operations include creating orders (synchronous and asynchronous), retrieving order details, listing orders, estimating order costs, managing account balances, browsing the product catalog by category and country, and receiving order completion and product update webhooks. Authentication uses the X-Api-Key header. Idempotency is supported via X-Idempotency-Key.
 
-| Spec | Description |
-|------|-------------|
-| [runa-payouts-api-openapi.yml](openapi/runa-payouts-api-openapi.yml) | Payouts API covering orders, products, categories, countries, balance, and ping |
+- **Human URL:** [https://developer.runa.io/](https://developer.runa.io/)
+- **Base URL:** `https://api.runa.io/v2`
 
-## Rules
+#### Tags
 
-| Ruleset | Description |
-|---------|-------------|
-| [runa-spectral-rules.yml](rules/runa-spectral-rules.yml) | Spectral ruleset enforcing Runa API design conventions |
+- Gift Cards
+- Rewards
+- Payments
+- Incentives
+- Payouts
+- B2C
 
-## Capabilities
+#### Properties
 
-### Workflow Capabilities
+- [Documentation](https://developer.runa.io/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/openapi/runa-payouts-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/runa-payouts-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/runa-payouts-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-| Capability | Description |
-|------------|-------------|
-| [rewards-distribution.yaml](capabilities/rewards-distribution.yaml) | End-to-end digital reward distribution workflow |
+## Common Properties
 
-### Shared Definitions
-
-| Shared | Description |
-|--------|-------------|
-| [payouts-api.yaml](capabilities/shared/payouts-api.yaml) | Per-API consumed definition for the Runa Payouts API |
-
-## Schemas
-
-| Schema | Description |
-|--------|-------------|
-| [runa-order-schema.json](json-schema/runa-order-schema.json) | JSON Schema for Runa order records |
-
-## Structures
-
-| Structure | Description |
-|-----------|-------------|
-| [runa-structure.json](json-structure/runa-structure.json) | JSON structure documentation for Runa data entities |
-
-## JSON-LD
-
-| Context | Description |
-|---------|-------------|
-| [runa-context.jsonld](json-ld/runa-context.jsonld) | JSON-LD context mapping Runa vocabulary to schema.org |
-
-## Examples
-
-| Example | Description |
-|---------|-------------|
-| [runa-create-order-example.json](examples/runa-create-order-example.json) | Create a $25 multi-brand payout link order |
-| [runa-get-balance-example.json](examples/runa-get-balance-example.json) | Get USD account balance |
-
-## Vocabulary
-
-| Vocabulary | Description |
-|------------|-------------|
-| [runa-vocabulary.yml](vocabulary/runa-vocabulary.yml) | Domain vocabulary for digital rewards, payouts, and gift card concepts |
+- [LinkedIn](https://www.linkedin.com/company/runapayouts)
+- [Portal](https://developer.runa.io/)
+- [Authentication](https://developer.runa.io/docs/getting-an-api-key)
+- [Sign Up](https://app.runa.io/)
+- [Sandbox](https://developer.runa.io/docs/playground)
+- [Terms of Service](https://runa.io/legal/)
+- [Privacy Policy](https://runa.io/privacy-policy/)
+- [Blog](https://runa.io/blog/)
+- [L L Ms Txt](https://developer.runa.io/llms.txt)
 
 ## Maintainers
 
-**FN:** Kin Lane  
+**FN:** Kin Lane
 **Email:** kin@apievangelist.com
