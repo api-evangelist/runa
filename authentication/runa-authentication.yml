@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/runa-payouts-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  description: Runa API key. Generate your key at https://app.runa.io/api-keys. The key is only
+    displayed at generation time for security.
+  sources:
+  - openapi/runa-payouts-api-openapi.yml
