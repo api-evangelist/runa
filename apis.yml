@@ -44,6 +44,8 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/openapi/runa-payouts-api-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/runa-agentic-access.yml
   - type: TrustCenter
     url: security/runa-trust-center.yml
   - type: DomainSecurity
