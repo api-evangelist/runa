@@ -1,0 +1,65 @@
+openapi: 3.1.0
+info:
+  title: Runa Payouts Balance Utilities API
+  description: The Runa Payouts API provides a single integration point for digital reward and gift card distribution across 190+ countries with access to over 5,000 gift cards and payout options. The API supports creating orders in both synchronous (instant) and asynchronous (polling) modes, balance management, product catalog browsing by category and country, order estimation, and event webhooks for order completion and product updates. Authentication uses the X-Api-Key header. Use X-Idempotency-Key on order creation to prevent duplicate orders.
+  version: '2024-02-05'
+  contact:
+    name: Runa Developer Support
+    url: https://developer.runa.io/
+  termsOfService: https://runa.io/legal/
+servers:
+- url: https://api.runa.io/v2
+  description: Runa Production API
+- url: https://playground.runa.io/v2
+  description: Runa Playground (sandbox)
+tags:
+- name: Utilities
+  description: Utility endpoints for connectivity testing.
+paths:
+  /ping:
+    get:
+      operationId: ping
+      summary: Ping
+      description: Health check endpoint to verify API connectivity and authentication. Returns a simple success response when the API key is valid.
+      tags:
+      - Utilities
+      responses:
+        '200':
+          description: API is reachable and authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: pong
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+components:
+  schemas:
+    Error:
+      type: object
+      description: Standard error response
+      properties:
+        type:
+          type: string
+          description: Error type identifier
+        message:
+          type: string
+          description: Human-readable error message
+        help:
+          type: string
+          description: Link or additional help information
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Runa API key. Generate your key at https://app.runa.io/api-keys. The key is only displayed at generation time for security.

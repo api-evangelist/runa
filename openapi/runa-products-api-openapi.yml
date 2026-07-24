@@ -1,0 +1,283 @@
+openapi: 3.1.0
+info:
+  title: Runa Payouts Balance Products API
+  description: The Runa Payouts API provides a single integration point for digital reward and gift card distribution across 190+ countries with access to over 5,000 gift cards and payout options. The API supports creating orders in both synchronous (instant) and asynchronous (polling) modes, balance management, product catalog browsing by category and country, order estimation, and event webhooks for order completion and product updates. Authentication uses the X-Api-Key header. Use X-Idempotency-Key on order creation to prevent duplicate orders.
+  version: '2024-02-05'
+  contact:
+    name: Runa Developer Support
+    url: https://developer.runa.io/
+  termsOfService: https://runa.io/legal/
+servers:
+- url: https://api.runa.io/v2
+  description: Runa Production API
+- url: https://playground.runa.io/v2
+  description: Runa Playground (sandbox)
+tags:
+- name: Products
+  description: Browse the Runa product catalog by name, category, or country.
+paths:
+  /products:
+    get:
+      operationId: listProducts
+      summary: List Products
+      description: Retrieve a paginated list of available gift card and payout products from the Runa catalog. Filter by country, category, currency, or search by name. Products represent individual brands available for digital reward distribution.
+      tags:
+      - Products
+      parameters:
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ISO 3166-1 alpha-2 country code to filter products
+        example: US
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Category name to filter products
+        example: Retail
+      - name: currency
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ISO 4217 currency code to filter products
+        example: USD
+      - name: query
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Search query to filter products by name
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+        description: Page number
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          maximum: 100
+        description: Products per page
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+  /products/{productId}:
+    get:
+      operationId: getProduct
+      summary: Get Product
+      description: Retrieve detailed information about a specific product including denomination options, supported countries, currencies, and redemption instructions.
+      tags:
+      - Products
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique product identifier
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+  /products/categories:
+    get:
+      operationId: listCategories
+      summary: List Product Categories
+      description: Retrieve the list of product categories available in the Runa catalog. Use category names to filter products when browsing or building product selection UIs.
+      tags:
+      - Products
+      responses:
+        '200':
+          description: List of product categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+  /products/countries:
+    get:
+      operationId: listCountries
+      summary: List Supported Countries
+      description: Retrieve the list of countries supported by the Runa platform. Use country codes to filter the product catalog to brands available in specific markets.
+      tags:
+      - Products
+      responses:
+        '200':
+          description: List of supported countries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Country'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+components:
+  schemas:
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        page:
+          type: integer
+          description: Current page number
+        per_page:
+          type: integer
+          description: Items per page
+        total:
+          type: integer
+          description: Total number of items
+        total_pages:
+          type: integer
+          description: Total number of pages
+    Category:
+      type: object
+      description: A product category in the Runa catalog
+      properties:
+        id:
+          type: string
+          description: Category identifier
+        name:
+          type: string
+          description: Category display name
+    Error:
+      type: object
+      description: Standard error response
+      properties:
+        type:
+          type: string
+          description: Error type identifier
+        message:
+          type: string
+          description: Human-readable error message
+        help:
+          type: string
+          description: Link or additional help information
+    Product:
+      type: object
+      description: A digital reward or gift card product in the Runa catalog
+      properties:
+        id:
+          type: string
+          description: Unique product identifier
+        name:
+          type: string
+          description: Brand or product name
+        description:
+          type: string
+          description: Product description and redemption instructions
+        categories:
+          type: array
+          items:
+            type: string
+          description: Product category names
+        countries:
+          type: array
+          items:
+            type: string
+          description: Supported country codes
+        currencies:
+          type: array
+          items:
+            type: string
+          description: Supported currency codes
+        denominations:
+          type: object
+          description: Available denomination options
+          properties:
+            type:
+              type: string
+              description: FIXED or VARIABLE denomination type
+              enum:
+              - FIXED
+              - VARIABLE
+            values:
+              type: array
+              items:
+                type: number
+              description: Fixed denomination values
+            min:
+              type: number
+              description: Minimum variable denomination
+            max:
+              type: number
+              description: Maximum variable denomination
+        image_url:
+          type: string
+          format: uri
+          description: Product brand image URL
+    Country:
+      type: object
+      description: A supported country
+      properties:
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Runa API key. Generate your key at https://app.runa.io/api-keys. The key is only displayed at generation time for security.

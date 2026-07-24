@@ -1,0 +1,83 @@
+openapi: 3.1.0
+info:
+  title: Runa Payouts Balance API
+  description: The Runa Payouts API provides a single integration point for digital reward and gift card distribution across 190+ countries with access to over 5,000 gift cards and payout options. The API supports creating orders in both synchronous (instant) and asynchronous (polling) modes, balance management, product catalog browsing by category and country, order estimation, and event webhooks for order completion and product updates. Authentication uses the X-Api-Key header. Use X-Idempotency-Key on order creation to prevent duplicate orders.
+  version: '2024-02-05'
+  contact:
+    name: Runa Developer Support
+    url: https://developer.runa.io/
+  termsOfService: https://runa.io/legal/
+servers:
+- url: https://api.runa.io/v2
+  description: Runa Production API
+- url: https://playground.runa.io/v2
+  description: Runa Playground (sandbox)
+tags:
+- name: Balance
+  description: Retrieve account balance by currency.
+paths:
+  /balance:
+    get:
+      operationId: getBalance
+      summary: Get Account Balance
+      description: Retrieve the current account balance. If the currency query parameter is provided, returns a single balance object. If omitted, returns balances for all currencies with a positive balance.
+      tags:
+      - Balance
+      parameters:
+      - name: currency
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ISO 4217 currency code (e.g., USD, GBP, EUR)
+        example: USD
+      responses:
+        '200':
+          description: Account balance(s)
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/Balance'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/Balance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apiKeyAuth: []
+components:
+  schemas:
+    Error:
+      type: object
+      description: Standard error response
+      properties:
+        type:
+          type: string
+          description: Error type identifier
+        message:
+          type: string
+          description: Human-readable error message
+        help:
+          type: string
+          description: Link or additional help information
+    Balance:
+      type: object
+      description: Account balance for a currency
+      properties:
+        balance:
+          type: string
+          description: Current balance amount as string (e.g., "10.00")
+        currency:
+          type: string
+          description: ISO 4217 currency code
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: Runa API key. Generate your key at https://app.runa.io/api-keys. The key is only displayed at generation time for security.
