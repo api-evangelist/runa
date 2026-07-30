@@ -7,9 +7,22 @@ description: >-
   supports synchronous and asynchronous order modes, balance management, product catalog browsing, and webhook-based
   event notifications for order completions.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/runa.png
 tags:
   - Gift Cards
   - Rewards
@@ -21,29 +34,57 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: runa:runa-payouts-api
-    name: Runa Payouts API
-    description: >-
-      The Runa Payouts API (v2) enables digital reward and gift card distribution at scale. Core operations include
-      creating orders (synchronous and asynchronous), retrieving order details, listing orders, estimating order costs,
-      managing account balances, browsing the product catalog by category and country, and receiving order completion
-      and product update webhooks. Authentication uses the X-Api-Key header. Idempotency is supported via
-      X-Idempotency-Key.
-    humanURL: https://developer.runa.io/
-    baseURL: https://api.runa.io/v2
-    tags:
-      - Gift Cards
-      - Rewards
-      - Payments
-      - Incentives
-      - Payouts
-      - B2C
-    properties:
-      - type: Documentation
-        url: https://developer.runa.io/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/openapi/runa-payouts-api-openapi.yml
+- aid: runa:runa-balance-api
+  name: Runa Balance API
+  description: Retrieve account balance by currency.
+  humanURL: https://developer.runa.io/
+  baseURL: https://api.runa.io/v2
+  tags:
+  - Balance
+  properties:
+  - type: OpenAPI
+    url: openapi/runa-balance-api-openapi.yml
+  - type: Documentation
+    url: https://developer.runa.io/
+- aid: runa:runa-orders-api
+  name: Runa Orders API
+  description: Create, retrieve, list, and estimate digital reward orders.
+  humanURL: https://developer.runa.io/
+  baseURL: https://api.runa.io/v2
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/runa-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.runa.io/
+- aid: runa:runa-products-api
+  name: Runa Products API
+  description: Browse the Runa product catalog by name, category, or country.
+  humanURL: https://developer.runa.io/
+  baseURL: https://api.runa.io/v2
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/runa-products-api-openapi.yml
+  - type: Documentation
+    url: https://developer.runa.io/
+- aid: runa:runa-utilities-api
+  name: Runa Utilities API
+  description: Utility endpoints for connectivity testing.
+  humanURL: https://developer.runa.io/
+  baseURL: https://api.runa.io/v2
+  tags:
+  - Utilities
+  properties:
+  - type: OpenAPI
+    url: openapi/runa-utilities-api-openapi.yml
+  - type: Documentation
+    url: https://developer.runa.io/
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/runa/overview
   - type: AgenticAccess
     url: agentic-access/runa-agentic-access.yml
   - type: TrustCenter
