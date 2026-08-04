@@ -1,0 +1,754 @@
+openapi: 3.1.0
+info:
+  title: Runa Payouts API
+  description: >-
+    The Runa Payouts API provides a single integration point for digital reward
+    and gift card distribution across 190+ countries with access to over 5,000
+    gift cards and payout options. The API supports creating orders in both
+    synchronous (instant) and asynchronous (polling) modes, balance management,
+    product catalog browsing by category and country, order estimation, and
+    event webhooks for order completion and product updates. Authentication uses
+    the X-Api-Key header. Use X-Idempotency-Key on order creation to prevent
+    duplicate orders.
+  version: '2024-02-05'
+  contact:
+    name: Runa Developer Support
+    url: https://developer.runa.io/
+  termsOfService: https://runa.io/legal/
+servers:
+  - url: https://api.runa.io/v2
+    description: Runa Production API
+  - url: https://playground.runa.io/v2
+    description: Runa Playground (sandbox)
+tags:
+  - name: Orders
+    description: Create, retrieve, list, and estimate digital reward orders.
+  - name: Products
+    description: Browse the Runa product catalog by name, category, or country.
+  - name: Balance
+    description: Retrieve account balance by currency.
+  - name: Utilities
+    description: Utility endpoints for connectivity testing.
+paths:
+  /order:
+    post:
+      operationId: createOrder
+      summary: Create An Order
+      description: >-
+        Create a new digital reward order. Specify the payment method,
+        distribution method, and product selection. Use X-Execution-Mode
+        header set to 'sync' for synchronous fulfillment or 'async' for
+        asynchronous processing. Include X-Idempotency-Key to prevent
+        duplicate orders on retry.
+      tags:
+        - Orders
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          required: false
+          schema:
+            type: string
+            format: uuid
+          description: >-
+            A unique identifier (V4 UUID recommended) to ensure idempotent
+            order creation on retries.
+        - name: X-Execution-Mode
+          in: header
+          required: false
+          schema:
+            type: string
+            enum:
+              - sync
+              - async
+            default: sync
+          description: >-
+            Order execution mode. Use 'sync' for immediate fulfillment
+            or 'async' for asynchronous processing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '200':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity - insufficient balance or invalid product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+    get:
+      operationId: listOrders
+      summary: List Orders
+      description: >-
+        Retrieve a paginated list of orders created with the authenticated
+        API key. Supports filtering and pagination.
+      tags:
+        - Orders
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          description: Page number for pagination
+        - name: per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          description: Number of orders per page
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+  /order/{orderId}:
+    get:
+      operationId: getOrder
+      summary: Get Order
+      description: >-
+        Retrieve the details of a specific order by its ID. Use this endpoint
+        to poll for order completion when using asynchronous mode.
+      tags:
+        - Orders
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique order identifier
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+  /order/estimate:
+    post:
+      operationId: estimateOrder
+      summary: Estimate Order
+      description: >-
+        Estimate the cost of an order before creating it. Returns the
+        estimated face value, fees, and total cost in the account currency.
+        Useful for presenting pricing to end users before checkout.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimateOrderRequest'
+      responses:
+        '200':
+          description: Order estimate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderEstimate'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+  /products:
+    get:
+      operationId: listProducts
+      summary: List Products
+      description: >-
+        Retrieve a paginated list of available gift card and payout products
+        from the Runa catalog. Filter by country, category, currency, or
+        search by name. Products represent individual brands available for
+        digital reward distribution.
+      tags:
+        - Products
+      parameters:
+        - name: country
+          in: query
+          required: false
+          schema:
+            type: string
+          description: ISO 3166-1 alpha-2 country code to filter products
+          example: US
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Category name to filter products
+          example: Retail
+        - name: currency
+          in: query
+          required: false
+          schema:
+            type: string
+          description: ISO 4217 currency code to filter products
+          example: USD
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search query to filter products by name
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: Page number
+        - name: per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+          description: Products per page
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+  /products/{productId}:
+    get:
+      operationId: getProduct
+      summary: Get Product
+      description: >-
+        Retrieve detailed information about a specific product including
+        denomination options, supported countries, currencies, and
+        redemption instructions.
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique product identifier
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+  /products/categories:
+    get:
+      operationId: listCategories
+      summary: List Product Categories
+      description: >-
+        Retrieve the list of product categories available in the Runa
+        catalog. Use category names to filter products when browsing
+        or building product selection UIs.
+      tags:
+        - Products
+      responses:
+        '200':
+          description: List of product categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+  /products/countries:
+    get:
+      operationId: listCountries
+      summary: List Supported Countries
+      description: >-
+        Retrieve the list of countries supported by the Runa platform.
+        Use country codes to filter the product catalog to brands available
+        in specific markets.
+      tags:
+        - Products
+      responses:
+        '200':
+          description: List of supported countries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Country'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+  /balance:
+    get:
+      operationId: getBalance
+      summary: Get Account Balance
+      description: >-
+        Retrieve the current account balance. If the currency query parameter
+        is provided, returns a single balance object. If omitted, returns
+        balances for all currencies with a positive balance.
+      tags:
+        - Balance
+      parameters:
+        - name: currency
+          in: query
+          required: false
+          schema:
+            type: string
+          description: ISO 4217 currency code (e.g., USD, GBP, EUR)
+          example: USD
+      responses:
+        '200':
+          description: Account balance(s)
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Balance'
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/Balance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+  /ping:
+    get:
+      operationId: ping
+      summary: Ping
+      description: >-
+        Health check endpoint to verify API connectivity and authentication.
+        Returns a simple success response when the API key is valid.
+      tags:
+        - Utilities
+      responses:
+        '200':
+          description: API is reachable and authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: pong
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - apiKeyAuth: []
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: >-
+        Runa API key. Generate your key at https://app.runa.io/api-keys.
+        The key is only displayed at generation time for security.
+  schemas:
+    CreateOrderRequest:
+      type: object
+      required:
+        - payment_method
+        - items
+      description: Request body for creating a digital reward order
+      properties:
+        payment_method:
+          type: object
+          required:
+            - type
+            - currency
+          description: Payment source for the order
+          properties:
+            type:
+              type: string
+              description: Payment method type
+              enum:
+                - ACCOUNT_BALANCE
+            currency:
+              type: string
+              description: ISO 4217 currency code (e.g., USD)
+        items:
+          type: array
+          minItems: 1
+          description: Array of order items to fulfill
+          items:
+            type: object
+            required:
+              - face_value
+              - distribution_method
+              - products
+            properties:
+              face_value:
+                type: number
+                description: Monetary value of the reward
+              currency:
+                type: string
+                description: ISO 4217 currency code for item face value
+              distribution_method:
+                type: string
+                description: How the reward link is delivered
+                enum:
+                  - EMAIL
+                  - PAYOUT_LINK
+                  - RECIPIENT
+              products:
+                type: object
+                description: Product selection configuration
+                properties:
+                  type:
+                    type: string
+                    description: Product selection type
+                    enum:
+                      - SINGLE
+                      - MULTIPLE
+                      - TEMPLATE
+                  product_ids:
+                    type: array
+                    items:
+                      type: string
+                    description: Specific product IDs (for SINGLE or MULTIPLE type)
+              recipient:
+                type: object
+                description: Recipient details (for EMAIL distribution)
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    description: Recipient email address
+                  name:
+                    type: string
+                    description: Recipient display name
+    EstimateOrderRequest:
+      type: object
+      required:
+        - payment_method
+        - items
+      description: Request body for estimating order cost
+      properties:
+        payment_method:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - ACCOUNT_BALANCE
+            currency:
+              type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              face_value:
+                type: number
+              currency:
+                type: string
+              products:
+                type: object
+    Order:
+      type: object
+      description: A Runa digital reward order
+      properties:
+        id:
+          type: string
+          description: Unique order identifier
+        status:
+          type: string
+          description: Order status
+          enum:
+            - PENDING
+            - PROCESSING
+            - COMPLETED
+            - FAILED
+            - CANCELLED
+        created_at:
+          type: string
+          format: date-time
+          description: Order creation timestamp
+        completed_at:
+          type: string
+          format: date-time
+          description: Order completion timestamp
+        payment_method:
+          type: object
+          description: Payment method used for the order
+          properties:
+            type:
+              type: string
+            currency:
+              type: string
+        items:
+          type: array
+          description: Order items with fulfillment details
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Item identifier
+              face_value:
+                type: number
+                description: Item face value
+              currency:
+                type: string
+                description: Item currency
+              status:
+                type: string
+                description: Item fulfillment status
+              payout:
+                type: object
+                description: Payout details for fulfilled item
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    description: Payout redemption link for the recipient
+                  expires_at:
+                    type: string
+                    format: date-time
+                    description: Link expiration timestamp
+    OrderEstimate:
+      type: object
+      description: Cost estimate for a potential order
+      properties:
+        face_value:
+          type: number
+          description: Total face value of the order
+        fees:
+          type: number
+          description: Platform fees for the order
+        total:
+          type: number
+          description: Total cost including fees
+        currency:
+          type: string
+          description: Currency for all values
+    Product:
+      type: object
+      description: A digital reward or gift card product in the Runa catalog
+      properties:
+        id:
+          type: string
+          description: Unique product identifier
+        name:
+          type: string
+          description: Brand or product name
+        description:
+          type: string
+          description: Product description and redemption instructions
+        categories:
+          type: array
+          items:
+            type: string
+          description: Product category names
+        countries:
+          type: array
+          items:
+            type: string
+          description: Supported country codes
+        currencies:
+          type: array
+          items:
+            type: string
+          description: Supported currency codes
+        denominations:
+          type: object
+          description: Available denomination options
+          properties:
+            type:
+              type: string
+              description: FIXED or VARIABLE denomination type
+              enum:
+                - FIXED
+                - VARIABLE
+            values:
+              type: array
+              items:
+                type: number
+              description: Fixed denomination values
+            min:
+              type: number
+              description: Minimum variable denomination
+            max:
+              type: number
+              description: Maximum variable denomination
+        image_url:
+          type: string
+          format: uri
+          description: Product brand image URL
+    Balance:
+      type: object
+      description: Account balance for a currency
+      properties:
+        balance:
+          type: string
+          description: Current balance amount as string (e.g., "10.00")
+        currency:
+          type: string
+          description: ISO 4217 currency code
+    Category:
+      type: object
+      description: A product category in the Runa catalog
+      properties:
+        id:
+          type: string
+          description: Category identifier
+        name:
+          type: string
+          description: Category display name
+    Country:
+      type: object
+      description: A supported country
+      properties:
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        page:
+          type: integer
+          description: Current page number
+        per_page:
+          type: integer
+          description: Items per page
+        total:
+          type: integer
+          description: Total number of items
+        total_pages:
+          type: integer
+          description: Total number of pages
+    Error:
+      type: object
+      description: Standard error response
+      properties:
+        type:
+          type: string
+          description: Error type identifier
+        message:
+          type: string
+          description: Human-readable error message
+        help:
+          type: string
+          description: Link or additional help information

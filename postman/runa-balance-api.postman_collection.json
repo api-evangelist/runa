@@ -1,0 +1,185 @@
+{
+  "info": {
+    "_postman_id": "0ce1a08e-6b15-41cc-9040-152e55491e26",
+    "name": "Runa Payouts Balance API",
+    "description": "The Runa Payouts API provides a single integration point for digital reward and gift card distribution across 190+ countries with access to over 5,000 gift cards and payout options. The API supports creating orders in both synchronous (instant) and asynchronous (polling) modes, balance management, product catalog browsing by category and country, order estimation, and event webhooks for order completion and product updates. Authentication uses the X-Api-Key header. Use X-Idempotency-Key on order creation to prevent duplicate orders.\n\nContact Support:\n Name: Runa Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:11.000Z",
+    "updatedAt": "2026-07-28T02:49:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0ce1a08e-6b15-41cc-9040-152e55491e26"
+  },
+  "item": [
+    {
+      "name": "balance",
+      "item": [
+        {
+          "name": "Get Account Balance",
+          "id": "8662c58c-6f53-43a5-8219-9d55a77161bf",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/balance?currency=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "balance"
+              ],
+              "query": [
+                {
+                  "description": "ISO 4217 currency code (e.g., USD, GBP, EUR)",
+                  "key": "currency",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve the current account balance. If the currency query parameter is provided, returns a single balance object. If omitted, returns balances for all currencies with a positive balance."
+          },
+          "response": [
+            {
+              "id": "dc8f25bf-9941-453c-a2e2-940ef4192089",
+              "name": "Account balance(s)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/balance?currency=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "balance"
+                  ],
+                  "query": [
+                    {
+                      "description": "ISO 4217 currency code (e.g., USD, GBP, EUR)",
+                      "key": "currency",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"balance\": \"<string>\",\n  \"currency\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:49:12.000Z",
+              "updatedAt": "2026-07-28T02:49:12.000Z",
+              "uid": "35240-dc8f25bf-9941-453c-a2e2-940ef4192089"
+            },
+            {
+              "id": "35aa8e47-dfca-4557-9a82-0e74080254ac",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/balance?currency=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "balance"
+                  ],
+                  "query": [
+                    {
+                      "description": "ISO 4217 currency code (e.g., USD, GBP, EUR)",
+                      "key": "currency",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"message\": \"<string>\",\n  \"help\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:49:12.000Z",
+              "updatedAt": "2026-07-28T02:49:12.000Z",
+              "uid": "35240-35aa8e47-dfca-4557-9a82-0e74080254ac"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:12.000Z",
+          "updatedAt": "2026-07-28T02:49:12.000Z",
+          "uid": "35240-8662c58c-6f53-43a5-8219-9d55a77161bf"
+        }
+      ],
+      "id": "11e11ee3-4281-407e-85b7-f27218c391ec",
+      "createdAt": "2026-07-28T02:49:12.000Z",
+      "updatedAt": "2026-07-28T02:49:12.000Z",
+      "uid": "35240-11e11ee3-4281-407e-85b7-f27218c391ec"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.runa.io/v2"
+    }
+  ]
+}

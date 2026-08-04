@@ -1,0 +1,767 @@
+{
+  "info": {
+    "_postman_id": "2bad0948-0b89-4be4-90c0-e7c794cb6fe2",
+    "name": "Runa Payouts Balance Products API",
+    "description": "The Runa Payouts API provides a single integration point for digital reward and gift card distribution across 190+ countries with access to over 5,000 gift cards and payout options. The API supports creating orders in both synchronous (instant) and asynchronous (polling) modes, balance management, product catalog browsing by category and country, order estimation, and event webhooks for order completion and product updates. Authentication uses the X-Api-Key header. Use X-Idempotency-Key on order creation to prevent duplicate orders.\n\nContact Support:\n Name: Runa Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:13.000Z",
+    "updatedAt": "2026-07-28T02:49:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2bad0948-0b89-4be4-90c0-e7c794cb6fe2"
+  },
+  "item": [
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "{productId}",
+          "item": [
+            {
+              "name": "Get Product",
+              "id": "ba14b7eb-8942-412e-aa8d-3cf45ecf5f6f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Api-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products/:productId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":productId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a9b2fbf9-1654-44ca-91d1-641d4c28f1f0",
+                      "key": "productId",
+                      "value": "<string>",
+                      "description": "(Required) The unique product identifier"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed information about a specific product including denomination options, supported countries, currencies, and redemption instructions."
+              },
+              "response": [
+                {
+                  "id": "e9eae02a-8234-489d-a64d-811623b7d864",
+                  "name": "Product details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:productId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":productId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "productId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"denominations\": {\n    \"type\": \"FIXED\",\n    \"values\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"min\": \"<number>\",\n    \"max\": \"<number>\"\n  },\n  \"image_url\": \"<uri>\"\n}",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-e9eae02a-8234-489d-a64d-811623b7d864"
+                },
+                {
+                  "id": "51cb84d9-4252-4a38-a260-ea5d283d8d49",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:productId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":productId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "productId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"message\": \"<string>\",\n  \"help\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-51cb84d9-4252-4a38-a260-ea5d283d8d49"
+                },
+                {
+                  "id": "96a806f9-5d00-402d-81cd-6cc9e13a9758",
+                  "name": "Product not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:productId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":productId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "productId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"message\": \"<string>\",\n  \"help\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-96a806f9-5d00-402d-81cd-6cc9e13a9758"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-ba14b7eb-8942-412e-aa8d-3cf45ecf5f6f"
+            }
+          ],
+          "id": "04874c46-7cf7-43e8-b3c4-0306507429d7",
+          "createdAt": "2026-07-28T02:49:13.000Z",
+          "updatedAt": "2026-07-28T02:49:13.000Z",
+          "uid": "35240-04874c46-7cf7-43e8-b3c4-0306507429d7"
+        },
+        {
+          "name": "categories",
+          "item": [
+            {
+              "name": "List Product Categories",
+              "id": "b1c1e883-0771-41bd-acd6-da6ecdcd2189",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Api-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products",
+                    "categories"
+                  ]
+                },
+                "description": "Retrieve the list of product categories available in the Runa catalog. Use category names to filter products when browsing or building product selection UIs."
+              },
+              "response": [
+                {
+                  "id": "d0539bd3-952e-4e3a-aa9a-7c9ee9a9e66c",
+                  "name": "List of product categories",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/categories",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        "categories"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-d0539bd3-952e-4e3a-aa9a-7c9ee9a9e66c"
+                },
+                {
+                  "id": "f4dc3c15-dc50-430c-9ad9-954c6bf57d4a",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/categories",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        "categories"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"message\": \"<string>\",\n  \"help\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-f4dc3c15-dc50-430c-9ad9-954c6bf57d4a"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-b1c1e883-0771-41bd-acd6-da6ecdcd2189"
+            }
+          ],
+          "id": "495a9c72-a48f-4aa2-8d51-6fde617e66e2",
+          "createdAt": "2026-07-28T02:49:13.000Z",
+          "updatedAt": "2026-07-28T02:49:13.000Z",
+          "uid": "35240-495a9c72-a48f-4aa2-8d51-6fde617e66e2"
+        },
+        {
+          "name": "countries",
+          "item": [
+            {
+              "name": "List Supported Countries",
+              "id": "ad8435ce-514f-4528-8706-8991c6152301",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Api-Key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products/countries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products",
+                    "countries"
+                  ]
+                },
+                "description": "Retrieve the list of countries supported by the Runa platform. Use country codes to filter the product catalog to brands available in specific markets."
+              },
+              "response": [
+                {
+                  "id": "f8b0fef7-05ae-4841-b377-b2e45067a2d1",
+                  "name": "List of supported countries",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/countries",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        "countries"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"code\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  {\n    \"code\": \"<string>\",\n    \"name\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-f8b0fef7-05ae-4841-b377-b2e45067a2d1"
+                },
+                {
+                  "id": "58e839e8-0370-4b5a-9c36-17e8241f3eba",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/countries",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        "countries"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"message\": \"<string>\",\n  \"help\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-58e839e8-0370-4b5a-9c36-17e8241f3eba"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-ad8435ce-514f-4528-8706-8991c6152301"
+            }
+          ],
+          "id": "6c55a02c-d319-4d43-8edf-e6119ce14b01",
+          "createdAt": "2026-07-28T02:49:13.000Z",
+          "updatedAt": "2026-07-28T02:49:13.000Z",
+          "uid": "35240-6c55a02c-d319-4d43-8edf-e6119ce14b01"
+        },
+        {
+          "name": "List Products",
+          "id": "ba3bca8d-e7a1-4119-aba0-012ebad0cfab",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Api-Key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products?country=<string>&category=<string>&currency=<string>&query=<string>&page=1&per_page=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "description": "ISO 3166-1 alpha-2 country code to filter products",
+                  "key": "country",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Category name to filter products",
+                  "key": "category",
+                  "value": "<string>"
+                },
+                {
+                  "description": "ISO 4217 currency code to filter products",
+                  "key": "currency",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Search query to filter products by name",
+                  "key": "query",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Page number",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Products per page",
+                  "key": "per_page",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of available gift card and payout products from the Runa catalog. Filter by country, category, currency, or search by name. Products represent individual brands available for digital reward distribution."
+          },
+          "response": [
+            {
+              "id": "492e4a2b-679c-499c-b131-34f365711834",
+              "name": "List of products",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products?country=<string>&category=<string>&currency=<string>&query=<string>&page=1&per_page=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "description": "ISO 3166-1 alpha-2 country code to filter products",
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Category name to filter products",
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "ISO 4217 currency code to filter products",
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Search query to filter products by name",
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Page number",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Products per page",
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"products\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"currencies\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"denominations\": {\n        \"type\": \"VARIABLE\",\n        \"values\": [\n          \"<number>\",\n          \"<number>\"\n        ],\n        \"min\": \"<number>\",\n        \"max\": \"<number>\"\n      },\n      \"image_url\": \"<uri>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"currencies\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"denominations\": {\n        \"type\": \"FIXED\",\n        \"values\": [\n          \"<number>\",\n          \"<number>\"\n        ],\n        \"min\": \"<number>\",\n        \"max\": \"<number>\"\n      },\n      \"image_url\": \"<uri>\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"per_page\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"total_pages\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-492e4a2b-679c-499c-b131-34f365711834"
+            },
+            {
+              "id": "174cc68a-5f26-4c6c-bb95-f67bb3f6f4a2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products?country=<string>&category=<string>&currency=<string>&query=<string>&page=1&per_page=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "description": "ISO 3166-1 alpha-2 country code to filter products",
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Category name to filter products",
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "ISO 4217 currency code to filter products",
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Search query to filter products by name",
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Page number",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Products per page",
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"message\": \"<string>\",\n  \"help\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-174cc68a-5f26-4c6c-bb95-f67bb3f6f4a2"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:13.000Z",
+          "updatedAt": "2026-07-28T02:49:13.000Z",
+          "uid": "35240-ba3bca8d-e7a1-4119-aba0-012ebad0cfab"
+        }
+      ],
+      "id": "26c6a0f0-6c9b-4c72-a449-61853d21024e",
+      "createdAt": "2026-07-28T02:49:13.000Z",
+      "updatedAt": "2026-07-28T02:49:13.000Z",
+      "uid": "35240-26c6a0f0-6c9b-4c72-a449-61853d21024e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.runa.io/v2"
+    }
+  ]
+}
