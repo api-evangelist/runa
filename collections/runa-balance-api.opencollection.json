@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Runa Payouts Balance API",
+    "version": "2024-02-05"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Account Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.runa.io/v2/balance",
+            "params": [
+              {
+                "name": "currency",
+                "value": "USD",
+                "type": "query",
+                "description": "ISO 4217 currency code (e.g., USD, GBP, EUR)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the current account balance. If the currency query parameter is provided, returns a single balance object. If omitted, returns balances for all currencies with a positive balance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

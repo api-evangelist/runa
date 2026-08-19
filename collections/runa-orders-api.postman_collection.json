@@ -1,0 +1,965 @@
+{
+  "item": [
+    {
+      "id": "410aa67f-a57d-4ec7-b0b4-a92e1b0da269",
+      "name": "Orders",
+      "description": {
+        "content": "Create, retrieve, list, and estimate digital reward orders.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "50649439-5bb6-49df-9b78-9703afeb2bb6",
+          "name": "Create An Order",
+          "request": {
+            "name": "Create An Order",
+            "description": {
+              "content": "Create a new digital reward order. Specify the payment method, distribution method, and product selection. Use X-Execution-Mode header set to 'sync' for synchronous fulfillment or 'async' for asynchronous processing. Include X-Idempotency-Key to prevent duplicate orders on retry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique identifier (V4 UUID recommended) to ensure idempotent order creation on retries.",
+                "key": "X-Idempotency-Key",
+                "value": "<uuid>"
+              },
+              {
+                "disabled": false,
+                "description": "Order execution mode. Use 'sync' for immediate fulfillment or 'async' for asynchronous processing.",
+                "key": "X-Execution-Mode",
+                "value": "sync"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"distribution_method\": \"<string>\",\n      \"products\": {\n        \"type\": \"<string>\",\n        \"product_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"currency\": \"<string>\",\n      \"recipient\": {\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "77194af0-55d0-49c5-80fe-b4f719b67c28",
+              "name": "Order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique identifier (V4 UUID recommended) to ensure idempotent order creation on retries.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Order execution mode. Use 'sync' for immediate fulfillment or 'async' for asynchronous processing.",
+                    "key": "X-Execution-Mode",
+                    "value": "sync"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"distribution_method\": \"<string>\",\n      \"products\": {\n        \"type\": \"<string>\",\n        \"product_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"currency\": \"<string>\",\n      \"recipient\": {\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"FAILED\",\n  \"created_at\": \"2012-10-17T00:29:05.103Z\",\n  \"completed_at\": \"1975-06-02T16:32:38.187Z\",\n  \"payment_method\": {\n    \"type\": \"string\",\n    \"currency\": \"string\"\n  },\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"face_value\": 813.3062849273531,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"payout\": {\n        \"url\": \"http://rkwYmBt.kheR6yTisgKDFlipUgUCxMcTVH2q5oJr6KVkqGuk1ykagSqxTN+FQ8\",\n        \"expires_at\": \"1964-01-01T04:45:49.370Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"face_value\": 6007.507782058085,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"payout\": {\n        \"url\": \"http://txpmoOLckdRxOjwPfksCdEB.dudw4SljoBEBRX5Jww,QqXrEkXcAJI,hsuWqqp\",\n        \"expires_at\": \"1971-03-22T07:06:43.175Z\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afe62627-353f-4616-8e54-050d95fde0d8",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique identifier (V4 UUID recommended) to ensure idempotent order creation on retries.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Order execution mode. Use 'sync' for immediate fulfillment or 'async' for asynchronous processing.",
+                    "key": "X-Execution-Mode",
+                    "value": "sync"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"distribution_method\": \"<string>\",\n      \"products\": {\n        \"type\": \"<string>\",\n        \"product_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"currency\": \"<string>\",\n      \"recipient\": {\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"help\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32d5d783-3de3-4a1c-86a8-0b9350549a50",
+              "name": "Unauthorized - invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique identifier (V4 UUID recommended) to ensure idempotent order creation on retries.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Order execution mode. Use 'sync' for immediate fulfillment or 'async' for asynchronous processing.",
+                    "key": "X-Execution-Mode",
+                    "value": "sync"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"distribution_method\": \"<string>\",\n      \"products\": {\n        \"type\": \"<string>\",\n        \"product_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"currency\": \"<string>\",\n      \"recipient\": {\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"help\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0509cf7f-4a3e-4e2e-9e07-921169f57baf",
+              "name": "Unprocessable entity - insufficient balance or invalid product",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique identifier (V4 UUID recommended) to ensure idempotent order creation on retries.",
+                    "key": "X-Idempotency-Key",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Order execution mode. Use 'sync' for immediate fulfillment or 'async' for asynchronous processing.",
+                    "key": "X-Execution-Mode",
+                    "value": "sync"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"distribution_method\": \"<string>\",\n      \"products\": {\n        \"type\": \"<string>\",\n        \"product_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"currency\": \"<string>\",\n      \"recipient\": {\n        \"email\": \"<email>\",\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"help\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7f28810-d00d-4445-8199-d0c34b442ced",
+          "name": "List Orders",
+          "request": {
+            "name": "List Orders",
+            "description": {
+              "content": "Retrieve a paginated list of orders created with the authenticated API key. Supports filtering and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of orders per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "af9827eb-cd98-4ffb-b753-2f2325effbcc",
+              "name": "List of orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orders\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"PROCESSING\",\n      \"created_at\": \"1971-01-13T02:27:36.160Z\",\n      \"completed_at\": \"1974-05-14T04:07:18.172Z\",\n      \"payment_method\": {\n        \"type\": \"string\",\n        \"currency\": \"string\"\n      },\n      \"items\": [\n        {\n          \"id\": \"string\",\n          \"face_value\": 3747.9718322437107,\n          \"currency\": \"string\",\n          \"status\": \"string\",\n          \"payout\": {\n            \"url\": \"https://EKVEYpYn.jmtO8mwsHjLCb8gr+x7\",\n            \"expires_at\": \"2026-05-24T11:29:05.245Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"face_value\": 7008.382236103966,\n          \"currency\": \"string\",\n          \"status\": \"string\",\n          \"payout\": {\n            \"url\": \"http://pWBtSlTahC.mbqzvi3LcumoSl5kHyWAnKGGEEY+,wf4XCjdvKuoM,ejtpI0MDj\",\n            \"expires_at\": \"1983-01-02T20:12:15.734Z\"\n          }\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"COMPLETED\",\n      \"created_at\": \"2002-10-30T03:24:54.887Z\",\n      \"completed_at\": \"1989-05-30T18:31:55.126Z\",\n      \"payment_method\": {\n        \"type\": \"string\",\n        \"currency\": \"string\"\n      },\n      \"items\": [\n        {\n          \"id\": \"string\",\n          \"face_value\": 6824.607400455135,\n          \"currency\": \"string\",\n          \"status\": \"string\",\n          \"payout\": {\n            \"url\": \"https://ICjSekroBbMtxVjWlEgvAwtfeUNUasV.qnrGL8KyFuhjnPxLItu7UXgeCRwjMKT9FpPBo,aVdARsMIqpLJtmOOjAKDtGR,01aRZo9SZZ-Inw,iYWB0Yk8nri0l\",\n            \"expires_at\": \"1961-07-10T21:02:54.925Z\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"face_value\": 4465.867442689526,\n          \"currency\": \"string\",\n          \"status\": \"string\",\n          \"payout\": {\n            \"url\": \"https://uoDRBdHEVb.jsjnW\",\n            \"expires_at\": \"2000-02-07T07:22:41.866Z\"\n          }\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"page\": 4600,\n    \"per_page\": 8845,\n    \"total\": 6312,\n    \"total_pages\": 237\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2b9fc8d-b98c-4338-bd8f-dc3fd30cc194",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"help\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8eec8ee3-a5d2-42c2-b909-244ca780ea02",
+          "name": "Get Order",
+          "request": {
+            "name": "Get Order",
+            "description": {
+              "content": "Retrieve the details of a specific order by its ID. Use this endpoint to poll for order completion when using asynchronous mode.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) The unique order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ea0fdad3-b368-49f5-8948-17c54877030b",
+              "name": "Order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"FAILED\",\n  \"created_at\": \"2012-10-17T00:29:05.103Z\",\n  \"completed_at\": \"1975-06-02T16:32:38.187Z\",\n  \"payment_method\": {\n    \"type\": \"string\",\n    \"currency\": \"string\"\n  },\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"face_value\": 813.3062849273531,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"payout\": {\n        \"url\": \"http://rkwYmBt.kheR6yTisgKDFlipUgUCxMcTVH2q5oJr6KVkqGuk1ykagSqxTN+FQ8\",\n        \"expires_at\": \"1964-01-01T04:45:49.370Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"face_value\": 6007.507782058085,\n      \"currency\": \"string\",\n      \"status\": \"string\",\n      \"payout\": {\n        \"url\": \"http://txpmoOLckdRxOjwPfksCdEB.dudw4SljoBEBRX5Jww,QqXrEkXcAJI,hsuWqqp\",\n        \"expires_at\": \"1971-03-22T07:06:43.175Z\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca59abf8-7353-40c1-9a3e-cc5f77a9758f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"help\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d99fc36f-5fc2-403b-a32e-1f31fa72a6fb",
+              "name": "Order not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"help\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cf1c2e4-3108-4aa2-acd1-a5e22193b156",
+          "name": "Estimate Order",
+          "request": {
+            "name": "Estimate Order",
+            "description": {
+              "content": "Estimate the cost of an order before creating it. Returns the estimated face value, fees, and total cost in the account currency. Useful for presenting pricing to end users before checkout.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                "estimate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Api-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"products\": \"<object>\"\n    },\n    {\n      \"face_value\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"products\": \"<object>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0015220-792e-472b-b471-c6e46f71ec52",
+              "name": "Order estimate",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"products\": \"<object>\"\n    },\n    {\n      \"face_value\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"products\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"face_value\": 9229.877569742786,\n  \"fees\": 8632.70109481409,\n  \"total\": 8080.59662203143,\n  \"currency\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c95a3da4-9e04-41f8-9622-72136b25d7c6",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"products\": \"<object>\"\n    },\n    {\n      \"face_value\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"products\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"help\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dadd90b-a42c-46b3-ad87-07b80722dd0c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method\": {\n    \"type\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"face_value\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"products\": \"<object>\"\n    },\n    {\n      \"face_value\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"products\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"help\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.runa.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "adee103e-c490-4a54-8853-019840e3f2b8",
+    "name": "Runa Payouts Balance Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Runa Payouts API provides a single integration point for digital reward and gift card distribution across 190+ countries with access to over 5,000 gift cards and payout options. The API supports creating orders in both synchronous (instant) and asynchronous (polling) modes, balance management, product catalog browsing by category and country, order estimation, and event webhooks for order completion and product updates. Authentication uses the X-Api-Key header. Use X-Idempotency-Key on order creation to prevent duplicate orders.\n\nContact Support:\n Name: Runa Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

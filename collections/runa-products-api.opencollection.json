@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Runa Payouts Balance Products API",
+    "version": "2024-02-05"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.runa.io/v2/products",
+            "params": [
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "ISO 3166-1 alpha-2 country code to filter products"
+              },
+              {
+                "name": "category",
+                "value": "Retail",
+                "type": "query",
+                "description": "Category name to filter products"
+              },
+              {
+                "name": "currency",
+                "value": "USD",
+                "type": "query",
+                "description": "ISO 4217 currency code to filter products"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query to filter products by name"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Products per page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a paginated list of available gift card and payout products from the Runa catalog. Filter by country, category, currency, or search by name. Products represent individual brands available for digital reward distribution."
+        },
+        {
+          "info": {
+            "name": "Get Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.runa.io/v2/products/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The unique product identifier"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve detailed information about a specific product including denomination options, supported countries, currencies, and redemption instructions."
+        },
+        {
+          "info": {
+            "name": "List Product Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.runa.io/v2/products/categories",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of product categories available in the Runa catalog. Use category names to filter products when browsing or building product selection UIs."
+        },
+        {
+          "info": {
+            "name": "List Supported Countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.runa.io/v2/products/countries",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of countries supported by the Runa platform. Use country codes to filter the product catalog to brands available in specific markets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

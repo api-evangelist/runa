@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Runa Payouts Balance Orders API",
+    "version": "2024-02-05"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.runa.io/v2/order",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of orders per page"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a paginated list of orders created with the authenticated API key. Supports filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "Create An Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.runa.io/v2/order",
+            "headers": [
+              {
+                "name": "X-Idempotency-Key",
+                "value": ""
+              },
+              {
+                "name": "X-Execution-Mode",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new digital reward order. Specify the payment method, distribution method, and product selection. Use X-Execution-Mode header set to 'sync' for synchronous fulfillment or 'async' for asynchronous processing. Include X-Idempotency-Key to prevent duplicate orders on retry."
+        },
+        {
+          "info": {
+            "name": "Get Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.runa.io/v2/order/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique order identifier"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the details of a specific order by its ID. Use this endpoint to poll for order completion when using asynchronous mode."
+        },
+        {
+          "info": {
+            "name": "Estimate Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.runa.io/v2/order/estimate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Api-Key",
+              "value": "{{X-Api-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Estimate the cost of an order before creating it. Returns the estimated face value, fees, and total cost in the account currency. Useful for presenting pricing to end users before checkout."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,71 @@
+# Runa Developer Hub
+
+> Send instant B2C payments your recipients will love
+
+## Docs
+
+- [Welcome](https://developer.runa.io/welcome.md): Send instant B2C payments your recipients will love
+- [Introduction](https://developer.runa.io/introduction.md): Where global payouts take shape: access APIs, guides, use cases, and tools to embed instant, flexible payouts - at scale, anywhere
+- [Steps](https://developer.runa.io/getting-started/steps.md): Your first call starts here
+- [Environments](https://developer.runa.io/getting-started/environments.md): Learn about the different API environments available in Runa
+- [Creating an API key](https://developer.runa.io/getting-started/api-key.md): Create an API key to authenticate your requests
+- [Which mode to use?](https://developer.runa.io/getting-started/first-order/which-mode.md): The Runa API supports synchronous & asynchronous modes of ordering. Which is the right mode depends on your use case.
+- [Sync](https://developer.runa.io/getting-started/first-order/sync.md): Making your first API order in synchronous mode
+- [Async](https://developer.runa.io/getting-started/first-order/async.md): Making your first API order in asynchronous mode
+- [Moving to production](https://developer.runa.io/getting-started/production.md): Before going live, your account must pass compliance checks and be funded, here's what to expect
+- [Product catalog](https://developer.runa.io/features/product-catalog.md): Fetch the latest catalog of products available for use in payouts
+- [Real-time catalog updates](https://developer.runa.io/features/realtime-product-updates.md): Using webhooks to get real-time updates on product catalog changes
+- [Estimate the price of an order](https://developer.runa.io/features/estimate.md): Check what you will be charged for an order before you pay
+- [Managing your balances](https://developer.runa.io/features/balances.md): Check your balance using the API and set up alerts to notify you when your balance is low
+- [Limiting available products](https://developer.runa.io/features/limiting-available-products.md): Choose what products are available to your recipients when sending a payout link
+- [Customizing and branding the redemption experience](https://developer.runa.io/features/user-redemption-templates.md): Add your own branding and customize the redemption experience for your recipients
+- [Save product selections between orders](https://developer.runa.io/features/merchant-selection-template.md): Save a curated list of merchants to re-use between orders, update the selection, or remove merchants from the list without API changes needed
+- [Paying for an order using another currency](https://developer.runa.io/features/embedded-fx.md): Use Runa Embedded FX to pay for an order using your funds in another currency
+- [Using Push to Card](https://developer.runa.io/features/push-to-card/introduction.md): Provide faster access to funds for your recipients by pushing funds to cards.
+- [Testing](https://developer.runa.io/features/push-to-card/testing.md): Steps to simulate different push to card redemption scenarios in playground.
+- [Support](https://developer.runa.io/features/push-to-card/support.md): Potential error scenarios for Push to Card and their resolution.
+- [Using Prepaid Visa Cards](https://developer.runa.io/features/prepaid-visa/introduction.md): Send funds to recipients via instantly delivered, digital Visa prepaid cards.
+- [Card spend controls](https://developer.runa.io/features/prepaid-visa/spend-controls.md): Limit which merchants a Prepaid Visa Card can be used for
+- [Support](https://developer.runa.io/features/prepaid-visa/support.md): Potential error scenarios for Prepaid Visa Cards and their resolution.
+- [Getting ready to go live](https://developer.runa.io/best-practices/before-you-go-live.md): Before you go live ensure your integration is reliable and secure
+- [Authentication](https://developer.runa.io/best-practices/authentication.md): How to manage authentication when using the Runa API
+- [Security](https://developer.runa.io/best-practices/security.md): Best practices for securing your integration with the Runa API
+- [Idempotency](https://developer.runa.io/best-practices/idempotency.md): Safe retrying of requests without accidentally performing the same operation twice
+- [Handling Errors](https://developer.runa.io/best-practices/handling-errors.md): How to handle error scenarios when using the Runa API
+- [Rate Limits](https://developer.runa.io/best-practices/rate-limits.md): How to handle rate limits when using the Runa API
+- [API versioning](https://developer.runa.io/best-practices/api-versioning.md): Keep up to date with the latest Runa API version
+- [Introduction](https://developer.runa.io/reference/2024-02-05/introduction.md): Introduction to the API reference documentation
+- [Error types](https://developer.runa.io/reference/2024-02-05/errors.md): Error types and handling in the Runa API
+- [Playground](https://developer.runa.io/reference/2024-02-05/playground.md): Test your integration with the Runa API Playground
+- [Webhooks](https://developer.runa.io/reference/webhooks.md): Real-time updates for the product catalog and your orders.
+- [Supported countries](https://developer.runa.io/reference/countries.md): List of all countries that Runa supports
+- [Currencies](https://developer.runa.io/reference/currencies.md): List of currencies supported by the Runa API
+- [Pagination](https://developer.runa.io/reference/pagination.md): Handling endpoints that return multiple pages of data
+- [Create a new order](https://developer.runa.io/reference/2024-02-05/endpoint/orders/create.md): Creates a new order, supports both sync and async execution modes
+- [Get order details](https://developer.runa.io/reference/2024-02-05/endpoint/orders/get.md): Get the details and status of a specific order. Can be used for checking the status of an async order after it's been accepted.
+- [List orders](https://developer.runa.io/reference/2024-02-05/endpoint/orders/list.md): Get a list of all of your orders
+- [Estimate order](https://developer.runa.io/reference/2024-02-05/endpoint/orders/estimate.md): Estimate the price for the order
+- [List products](https://developer.runa.io/reference/2024-02-05/endpoint/products/list.md): List all products in your catalog
+- [Get product details](https://developer.runa.io/reference/2024-02-05/endpoint/products/get.md): Retrieve a single product's details
+- [List countries](https://developer.runa.io/reference/2024-02-05/endpoint/products/countries.md): Get a list of countries where products are available
+- [List categories](https://developer.runa.io/reference/2024-02-05/endpoint/products/categories.md): Get a list of all possible product categories
+- [Get account balance](https://developer.runa.io/reference/2024-02-05/endpoint/balance/get.md): Fetch the current balances for your account
+- [Ping](https://developer.runa.io/reference/2024-02-05/endpoint/utility/ping.md): Check your integration can connect to the Runa API
+- [Order completion](https://developer.runa.io/reference/2024-02-05/webhook/order.completion.md): Order completion events are triggered when an order has completed processing.
+- [Product update](https://developer.runa.io/reference/2024-02-05/webhook/product.update.md): Product update events are triggered when there is an update to the catalog.
+- [API Updates](https://developer.runa.io/changelog/api.md): Changelog of all major API updates, new features, removals, and improvements.
+- [Additions](https://developer.runa.io/changelog/network/2026/additions.md): Find out what brands and payout types have been added to the network.
+- [Changes](https://developer.runa.io/changelog/network/2026/changes.md): Occasionally our merchant partners make changes to their product offering. To ensure a smooth experience and to make sure these changes are reflected on your platform you may need to make an API call to our products endpoint.
+- [Removals](https://developer.runa.io/changelog/network/2026/removals.md): Find out what brands and payout types have been removed from the Runa Network.
+- [Additions](https://developer.runa.io/changelog/network/2025/additions.md): Find out what brands and payout types have been added to the network.
+- [Changes](https://developer.runa.io/changelog/network/2025/changes.md): Occasionally our merchant partners make changes to their product offering. To ensure a smooth experience and to make sure these changes are reflected on your platform you may need to make an API call to our products endpoint.
+- [Removals](https://developer.runa.io/changelog/network/2025/removals.md): Find out what brands and payout types have been removed from the Runa Network.
+- [Additions](https://developer.runa.io/changelog/network/2024/additions.md): Find out what brands and payout types have been added to the network.
+- [Changes](https://developer.runa.io/changelog/network/2024/changes.md): Occasionally our merchant partners make changes to their product offering. To ensure a smooth experience and to make sure these changes are reflected on your platform you may need to make an API call to our products endpoint.
+- [Removals](https://developer.runa.io/changelog/network/2024/removals.md): Find out what brands and payout types have been removed from the Runa Network.
+- [Additions](https://developer.runa.io/changelog/network/2023/additions.md): Find out what brands and payout types have been added to the network.
+- [Changes](https://developer.runa.io/changelog/network/2023/changes.md): Occasionally our merchant partners make changes to their product offering. To ensure a smooth experience and to make sure these changes are reflected on your platform you may need to make an API call to our products endpoint.
+
+## OpenAPI Specs
+
+- [openapi](https://developer.runa.io/reference/2024-02-05/openapi.json)
