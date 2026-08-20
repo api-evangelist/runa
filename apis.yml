@@ -40,6 +40,8 @@ apis:
   humanURL: https://developer.runa.io/
   baseURL: https://api.runa.io/v2
   tags:
+  - Balances
+  tags_raw:
   - Balance
   properties:
   - type: OpenAPI
@@ -52,6 +54,8 @@ apis:
   humanURL: https://developer.runa.io/
   baseURL: https://api.runa.io/v2
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -64,6 +68,8 @@ apis:
   humanURL: https://developer.runa.io/
   baseURL: https://api.runa.io/v2
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
