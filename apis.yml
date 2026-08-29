@@ -7,6 +7,18 @@ description: >-
   supports synchronous and asynchronous order modes, balance management, product catalog browsing, and webhook-based
   event notifications for order completions.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
