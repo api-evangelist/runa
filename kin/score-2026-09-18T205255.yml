@@ -1,28 +1,29 @@
-# Kin Score artifact — runa — 2026-08-17T064519
+# Kin Score artifact — runa — 2026-09-18T205255
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: runa
-  schema_version: 0.11.0
-  scored_at: '2026-08-17'
-  run_ts: 2026-08-17T064519
-  composite: 51.6
+  schema_version: 0.22.0
+  scored_at: '2026-09-18'
+  run_ts: 2026-09-18T205255
+  composite: 42.3
   band: developing
   facets:
-    discoverability: 81.5
-    contract_quality: 72.6
-    governance: 58.3
+    discoverability: 75.9
+    contract_quality: 67.2
+    contract_governance: 13.6
     operational_transparency: 7.9
-    developer_ergonomics: 32.6
-    commercial_clarity: 57.9
+    developer_ergonomics: 41.7
+    access_clarity: 36.8
   agent_readiness:
-    score: 52.3
-    band: agent-native
+    score: 37.1
+    band: agent-ready
     dimensions:
       spec_presence: true
       agentic_access: derived
+      reversibility_documented: false
       mcp_server: false
-      auth_clarity: true
+      auth_clarity: bearer
       idempotency: verified
       error_semantics: verified
       openapi_examples: verified
@@ -33,11 +34,15 @@ kin_score:
       consent_identity: false
       agent_card: false
       dry_run_mode: false
+      delegated_identity: false
+      protected_resource_metadata: false
+      dynamic_client_registration: false
+      agentic_commerce: false
   regulatory:
     applies: true
     regime: Payments
     regime_id: payments
-    score: 46.9
+    score: 34.4
     matched_via: tags
   provenance:
     agentic_access: derived
