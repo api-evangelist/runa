@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Runa Payouts Balance Products API
-  description: The Runa Payouts API provides a single integration point for digital reward and gift card distribution across 190+ countries with access to over 5,000 gift cards and payout options. The API supports creating orders in both synchronous (instant) and asynchronous (polling) modes, balance management, product catalog browsing by category and country, order estimation, and event webhooks for order completion and product updates. Authentication uses the X-Api-Key header. Use X-Idempotency-Key on order creation to prevent duplicate orders.
+  title: Runa Payouts Products API
+  description: The Runa Payouts API provides a single integration point for digital reward and gift card distribution across 190+ countries with access to over 5,000 gift cards and payout options.
   version: '2024-02-05'
   contact:
     name: Runa Developer Support
@@ -173,6 +173,39 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard error response
+      properties:
+        type:
+          type: string
+          description: Error type identifier
+        message:
+          type: string
+          description: Human-readable error message
+        help:
+          type: string
+          description: Link or additional help information
+    Country:
+      type: object
+      description: A supported country
+      properties:
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
+    Category:
+      type: object
+      description: A product category in the Runa catalog
+      properties:
+        id:
+          type: string
+          description: Category identifier
+        name:
+          type: string
+          description: Category display name
     Pagination:
       type: object
       description: Pagination metadata
@@ -189,29 +222,6 @@ components:
         total_pages:
           type: integer
           description: Total number of pages
-    Category:
-      type: object
-      description: A product category in the Runa catalog
-      properties:
-        id:
-          type: string
-          description: Category identifier
-        name:
-          type: string
-          description: Category display name
-    Error:
-      type: object
-      description: Standard error response
-      properties:
-        type:
-          type: string
-          description: Error type identifier
-        message:
-          type: string
-          description: Human-readable error message
-        help:
-          type: string
-          description: Link or additional help information
     Product:
       type: object
       description: A digital reward or gift card product in the Runa catalog
@@ -265,16 +275,6 @@ components:
           type: string
           format: uri
           description: Product brand image URL
-    Country:
-      type: object
-      description: A supported country
-      properties:
-        code:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
   securitySchemes:
     apiKeyAuth:
       type: apiKey
