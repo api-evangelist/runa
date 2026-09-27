@@ -191,6 +191,22 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        page:
+          type: integer
+          description: Current page number
+        per_page:
+          type: integer
+          description: Items per page
+        total:
+          type: integer
+          description: Total number of items
+        total_pages:
+          type: integer
+          description: Total number of pages
     Order:
       type: object
       description: A Runa digital reward order
@@ -253,6 +269,33 @@ components:
                     type: string
                     format: date-time
                     description: Link expiration timestamp
+    EstimateOrderRequest:
+      type: object
+      required:
+      - payment_method
+      - items
+      description: Request body for estimating order cost
+      properties:
+        payment_method:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - ACCOUNT_BALANCE
+            currency:
+              type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              face_value:
+                type: number
+              currency:
+                type: string
+              products:
+                type: object
     Error:
       type: object
       description: Standard error response
@@ -266,22 +309,22 @@ components:
         help:
           type: string
           description: Link or additional help information
-    Pagination:
+    OrderEstimate:
       type: object
-      description: Pagination metadata
+      description: Cost estimate for a potential order
       properties:
-        page:
-          type: integer
-          description: Current page number
-        per_page:
-          type: integer
-          description: Items per page
+        face_value:
+          type: number
+          description: Total face value of the order
+        fees:
+          type: number
+          description: Platform fees for the order
         total:
-          type: integer
-          description: Total number of items
-        total_pages:
-          type: integer
-          description: Total number of pages
+          type: number
+          description: Total cost including fees
+        currency:
+          type: string
+          description: Currency for all values
     CreateOrderRequest:
       type: object
       required:
@@ -355,49 +398,6 @@ components:
                   name:
                     type: string
                     description: Recipient display name
-    OrderEstimate:
-      type: object
-      description: Cost estimate for a potential order
-      properties:
-        face_value:
-          type: number
-          description: Total face value of the order
-        fees:
-          type: number
-          description: Platform fees for the order
-        total:
-          type: number
-          description: Total cost including fees
-        currency:
-          type: string
-          description: Currency for all values
-    EstimateOrderRequest:
-      type: object
-      required:
-      - payment_method
-      - items
-      description: Request body for estimating order cost
-      properties:
-        payment_method:
-          type: object
-          properties:
-            type:
-              type: string
-              enum:
-              - ACCOUNT_BALANCE
-            currency:
-              type: string
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              face_value:
-                type: number
-              currency:
-                type: string
-              products:
-                type: object
   securitySchemes:
     apiKeyAuth:
       type: apiKey
