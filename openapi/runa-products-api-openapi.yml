@@ -173,6 +173,35 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        page:
+          type: integer
+          description: Current page number
+        per_page:
+          type: integer
+          description: Items per page
+        total:
+          type: integer
+          description: Total number of items
+        total_pages:
+          type: integer
+          description: Total number of pages
+    Error:
+      type: object
+      description: Standard error response
+      properties:
+        type:
+          type: string
+          description: Error type identifier
+        message:
+          type: string
+          description: Human-readable error message
+        help:
+          type: string
+          description: Link or additional help information
     Product:
       type: object
       description: A digital reward or gift card product in the Runa catalog
@@ -226,45 +255,6 @@ components:
           type: string
           format: uri
           description: Product brand image URL
-    Pagination:
-      type: object
-      description: Pagination metadata
-      properties:
-        page:
-          type: integer
-          description: Current page number
-        per_page:
-          type: integer
-          description: Items per page
-        total:
-          type: integer
-          description: Total number of items
-        total_pages:
-          type: integer
-          description: Total number of pages
-    Error:
-      type: object
-      description: Standard error response
-      properties:
-        type:
-          type: string
-          description: Error type identifier
-        message:
-          type: string
-          description: Human-readable error message
-        help:
-          type: string
-          description: Link or additional help information
-    Category:
-      type: object
-      description: A product category in the Runa catalog
-      properties:
-        id:
-          type: string
-          description: Category identifier
-        name:
-          type: string
-          description: Category display name
     Country:
       type: object
       description: A supported country
@@ -275,6 +265,16 @@ components:
         name:
           type: string
           description: Country display name
+    Category:
+      type: object
+      description: A product category in the Runa catalog
+      properties:
+        id:
+          type: string
+          description: Category identifier
+        name:
+          type: string
+          description: Category display name
   securitySchemes:
     apiKeyAuth:
       type: apiKey

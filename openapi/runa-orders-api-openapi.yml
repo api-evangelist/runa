@@ -207,95 +207,6 @@ components:
         total_pages:
           type: integer
           description: Total number of pages
-    Order:
-      type: object
-      description: A Runa digital reward order
-      properties:
-        id:
-          type: string
-          description: Unique order identifier
-        status:
-          type: string
-          description: Order status
-          enum:
-          - PENDING
-          - PROCESSING
-          - COMPLETED
-          - FAILED
-          - CANCELLED
-        created_at:
-          type: string
-          format: date-time
-          description: Order creation timestamp
-        completed_at:
-          type: string
-          format: date-time
-          description: Order completion timestamp
-        payment_method:
-          type: object
-          description: Payment method used for the order
-          properties:
-            type:
-              type: string
-            currency:
-              type: string
-        items:
-          type: array
-          description: Order items with fulfillment details
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Item identifier
-              face_value:
-                type: number
-                description: Item face value
-              currency:
-                type: string
-                description: Item currency
-              status:
-                type: string
-                description: Item fulfillment status
-              payout:
-                type: object
-                description: Payout details for fulfilled item
-                properties:
-                  url:
-                    type: string
-                    format: uri
-                    description: Payout redemption link for the recipient
-                  expires_at:
-                    type: string
-                    format: date-time
-                    description: Link expiration timestamp
-    EstimateOrderRequest:
-      type: object
-      required:
-      - payment_method
-      - items
-      description: Request body for estimating order cost
-      properties:
-        payment_method:
-          type: object
-          properties:
-            type:
-              type: string
-              enum:
-              - ACCOUNT_BALANCE
-            currency:
-              type: string
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              face_value:
-                type: number
-              currency:
-                type: string
-              products:
-                type: object
     Error:
       type: object
       description: Standard error response
@@ -325,6 +236,33 @@ components:
         currency:
           type: string
           description: Currency for all values
+    EstimateOrderRequest:
+      type: object
+      required:
+      - payment_method
+      - items
+      description: Request body for estimating order cost
+      properties:
+        payment_method:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - ACCOUNT_BALANCE
+            currency:
+              type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              face_value:
+                type: number
+              currency:
+                type: string
+              products:
+                type: object
     CreateOrderRequest:
       type: object
       required:
@@ -398,6 +336,68 @@ components:
                   name:
                     type: string
                     description: Recipient display name
+    Order:
+      type: object
+      description: A Runa digital reward order
+      properties:
+        id:
+          type: string
+          description: Unique order identifier
+        status:
+          type: string
+          description: Order status
+          enum:
+          - PENDING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          - CANCELLED
+        created_at:
+          type: string
+          format: date-time
+          description: Order creation timestamp
+        completed_at:
+          type: string
+          format: date-time
+          description: Order completion timestamp
+        payment_method:
+          type: object
+          description: Payment method used for the order
+          properties:
+            type:
+              type: string
+            currency:
+              type: string
+        items:
+          type: array
+          description: Order items with fulfillment details
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Item identifier
+              face_value:
+                type: number
+                description: Item face value
+              currency:
+                type: string
+                description: Item currency
+              status:
+                type: string
+                description: Item fulfillment status
+              payout:
+                type: object
+                description: Payout details for fulfilled item
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    description: Payout redemption link for the recipient
+                  expires_at:
+                    type: string
+                    format: date-time
+                    description: Link expiration timestamp
   securitySchemes:
     apiKeyAuth:
       type: apiKey
