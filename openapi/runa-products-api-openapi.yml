@@ -173,22 +173,16 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
-    Pagination:
+    Country:
       type: object
-      description: Pagination metadata
+      description: A supported country
       properties:
-        page:
-          type: integer
-          description: Current page number
-        per_page:
-          type: integer
-          description: Items per page
-        total:
-          type: integer
-          description: Total number of items
-        total_pages:
-          type: integer
-          description: Total number of pages
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
     Error:
       type: object
       description: Standard error response
@@ -202,6 +196,16 @@ components:
         help:
           type: string
           description: Link or additional help information
+    Category:
+      type: object
+      description: A product category in the Runa catalog
+      properties:
+        id:
+          type: string
+          description: Category identifier
+        name:
+          type: string
+          description: Category display name
     Product:
       type: object
       description: A digital reward or gift card product in the Runa catalog
@@ -255,26 +259,22 @@ components:
           type: string
           format: uri
           description: Product brand image URL
-    Country:
+    Pagination:
       type: object
-      description: A supported country
+      description: Pagination metadata
       properties:
-        code:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
-    Category:
-      type: object
-      description: A product category in the Runa catalog
-      properties:
-        id:
-          type: string
-          description: Category identifier
-        name:
-          type: string
-          description: Category display name
+        page:
+          type: integer
+          description: Current page number
+        per_page:
+          type: integer
+          description: Items per page
+        total:
+          type: integer
+          description: Total number of items
+        total_pages:
+          type: integer
+          description: Total number of pages
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -52,16 +52,6 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
-    Balance:
-      type: object
-      description: Account balance for a currency
-      properties:
-        balance:
-          type: string
-          description: Current balance amount as string (e.g., "10.00")
-        currency:
-          type: string
-          description: ISO 4217 currency code
     Error:
       type: object
       description: Standard error response
@@ -75,6 +65,16 @@ components:
         help:
           type: string
           description: Link or additional help information
+    Balance:
+      type: object
+      description: Account balance for a currency
+      properties:
+        balance:
+          type: string
+          description: Current balance amount as string (e.g., "10.00")
+        currency:
+          type: string
+          description: ISO 4217 currency code
   securitySchemes:
     apiKeyAuth:
       type: apiKey

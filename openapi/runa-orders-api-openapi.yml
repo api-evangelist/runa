@@ -191,22 +191,6 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
-    Pagination:
-      type: object
-      description: Pagination metadata
-      properties:
-        page:
-          type: integer
-          description: Current page number
-        per_page:
-          type: integer
-          description: Items per page
-        total:
-          type: integer
-          description: Total number of items
-        total_pages:
-          type: integer
-          description: Total number of pages
     Error:
       type: object
       description: Standard error response
@@ -398,6 +382,22 @@ components:
                     type: string
                     format: date-time
                     description: Link expiration timestamp
+    Pagination:
+      type: object
+      description: Pagination metadata
+      properties:
+        page:
+          type: integer
+          description: Current page number
+        per_page:
+          type: integer
+          description: Items per page
+        total:
+          type: integer
+          description: Total number of items
+        total_pages:
+          type: integer
+          description: Total number of pages
   securitySchemes:
     apiKeyAuth:
       type: apiKey
