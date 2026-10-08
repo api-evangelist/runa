@@ -103,6 +103,12 @@ apis:
   - type: Documentation
     url: https://developer.runa.io/
 common:
+  - type: Plans
+    url: plans/runa-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/runa-rate-limits.yml
+  - type: FinOps
+    url: finops/runa-finops.yml
   - type: Website
     url: https://www.runa.io/
   - type: PostmanWorkspace
