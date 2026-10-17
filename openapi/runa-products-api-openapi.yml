@@ -173,16 +173,6 @@ paths:
       - apiKeyAuth: []
 components:
   schemas:
-    Country:
-      type: object
-      description: A supported country
-      properties:
-        code:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-        name:
-          type: string
-          description: Country display name
     Error:
       type: object
       description: Standard error response
@@ -275,6 +265,16 @@ components:
         total_pages:
           type: integer
           description: Total number of pages
+    Country:
+      type: object
+      description: A supported country
+      properties:
+        code:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+        name:
+          type: string
+          description: Country display name
   securitySchemes:
     apiKeyAuth:
       type: apiKey
