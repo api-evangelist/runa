@@ -1,4 +1,4 @@
-# Runa (runa)
+# Runa
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,65 +66,165 @@
 
 Runa is a global digital payouts platform that enables businesses to automate digital reward and gift card distribution through a single API. The platform provides access to over 5,000 gift cards and payout options across 190+ countries, supporting B2C payments, employee rewards, customer incentives, and loyalty programs. The Runa API supports synchronous and asynchronous order modes, balance management, product catalog browsing, and webhook-based event notifications for order completions.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/apis.yml)
+**Areas:** Gift Cards · Rewards · Payments · Incentives · Payouts · Loyalty & Incentives
 
-## Scope
+## Runa on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Runa is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/runa/](https://apis.io/providers/runa/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-- Gift Cards
-- Rewards
-- Payments
-- Incentives
-- Payouts
+- [Runa Balance API](https://apis.io/apis/runa/runa-balance-api/) — Retrieve account balance by currency.
+- [Runa Orders API](https://apis.io/apis/runa/runa-orders-api/) — Create, retrieve, list, and estimate digital reward orders.
+- [Runa Products API](https://apis.io/apis/runa/runa-products-api/) — Browse the Runa product catalog by name, category, or country.
+- [Runa Utilities API](https://apis.io/apis/runa/runa-utilities-api/) — Utility endpoints for connectivity testing.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-08
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Runa Payouts API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The Runa Payouts API (v2) enables digital reward and gift card distribution at scale. Core operations include creating orders (synchronous and asynchronous), retrieving order details, listing orders, estimating order costs, managing account balances, browsing the product catalog by category and country, and receiving order completion and product update webhooks. Authentication uses the X-Api-Key header. Idempotency is supported via X-Idempotency-Key.
+- [Runa Agentic Access](https://apis.io/agentic-access/runa/runa-agentic-access/)
 
-- **Human URL:** [https://developer.runa.io/](https://developer.runa.io/)
-- **Base URL:** `https://api.runa.io/v2`
+#### JSON Schema (1)
 
-#### Tags
+The data models the API reads and writes.
 
-- Gift Cards
-- Rewards
-- Payments
-- Incentives
-- Payouts
-- B2C
+- [Runa Order](https://apis.io/schemas/runa/runa-order/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://developer.runa.io/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/runa/refs/heads/main/openapi/runa-payouts-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/runa-payouts-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/runa-payouts-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-## Common Properties
+- [Runa Structure](https://apis.io/json-structure/runa/runa-structure/)
 
-- [LinkedIn](https://www.linkedin.com/company/runapayouts)
-- [Portal](https://developer.runa.io/)
-- [Authentication](https://developer.runa.io/docs/getting-an-api-key)
-- [Sign Up](https://app.runa.io/)
-- [Sandbox](https://developer.runa.io/docs/playground)
-- [Terms of Service](https://runa.io/legal/)
-- [Privacy Policy](https://runa.io/privacy-policy/)
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Runa Context](https://apis.io/jsonld/runa/runa-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Runa Vocabulary](https://apis.io/vocabularies/runa/runa-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Runa Create Order Example](https://apis.io/examples/runa/runa-create-order-example/)
+- [Runa Get Balance Example](https://apis.io/examples/runa/runa-get-balance-example/)
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [Runa Payouts Balance API](https://apis.io/collections/runa/open-runa-balance-api/)
+- [Runa Payouts Balance Orders API](https://apis.io/collections/runa/open-runa-orders-api/)
+- [Runa Payouts API](https://apis.io/collections/runa/open-runa-payouts-api/)
+- [Runa Payouts Balance Products API](https://apis.io/collections/runa/open-runa-products-api/)
+- [Runa Payouts Balance Utilities API](https://apis.io/collections/runa/open-runa-utilities-api/)
+- [Runa Payouts Balance API](https://apis.io/collections/runa/postman-runa-balance-api/)
+- [Runa Payouts Balance Orders API](https://apis.io/collections/runa/postman-runa-orders-api/)
+- [Runa Payouts Balance Products API](https://apis.io/collections/runa/postman-runa-products-api/)
+- [Runa Payouts Balance Utilities API](https://apis.io/collections/runa/postman-runa-utilities-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Runa — jsonschema rules](https://apis.io/rules/runa/runa-jsonschema-spectral-rules/)
+- [Runa API Rules](https://apis.io/rules/runa/runa-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Runa Authentication](https://apis.io/security/runa/runa-authentication/)
+- [Runa Domain Security](https://apis.io/security/runa/runa-domain-security/)
+- [Runa Trust Center](https://apis.io/security/runa/runa-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Runa Plans Pricing](https://apis.io/plans/runa/runa-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Runa Rate Limits](https://apis.io/rate-limits/runa/runa-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Runa Finops](https://apis.io/finops/runa/runa-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.runa.io/)
 - [Blog](https://runa.io/blog/)
-- [L L Ms Txt](https://developer.runa.io/llms.txt)
+- [Terms of service](https://runa.io/legal/)
+- [Privacy policy](https://runa.io/privacy-policy/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 38.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 61.2 |
+| Contract governance | 13.6 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 41.7 |
+| Access clarity | 28.9 |
+
+**Agent readiness 35.2** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 19.6** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/runa/](https://apis.io/providers/runa/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Runa: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/runa/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
